@@ -1,0 +1,20 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Superseded prototypes kept on disk for reference, not part of this repo
+/app
+/dashboard
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+.claude/settings.local.json
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

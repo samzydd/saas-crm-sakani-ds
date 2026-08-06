@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "crm-dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--host"],
+      "cwd": ".",
+      "port": 5173,
+      "autoPort": true
+    },
+    {
+      "name": "sakani-storybook",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "storybook", "--", "--ci"],
+      "cwd": "/Users/macbookpro/Desktop/sakani-design-system",
+      "port": 6006,
+      "autoPort": true
+    }
+  ]
+}

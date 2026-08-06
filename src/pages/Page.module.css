@@ -1,0 +1,149 @@
+.kpiRow {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.kpiRow > * {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.chartsRow2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.threeCol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.spanTwo {
+  grid-column: span 2;
+}
+
+.panelActionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.legendRowInline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-fg-default);
+}
+
+.legendItem .dot,
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legendList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.activityRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-bg-subtle);
+}
+
+.activityText {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--color-fg-default);
+}
+
+.activityMuted {
+  color: var(--color-fg-muted);
+  font-weight: 400;
+}
+
+.activityIcon {
+  color: var(--color-fg-muted);
+  flex-shrink: 0;
+}
+
+.miniStatsRow {
+  display: flex;
+  gap: 24px;
+}
+
+.miniStat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.miniStatLabel {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-fg-muted);
+}
+
+.miniStatValue {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-fg-default);
+}
+
+.metricPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.customerCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.customerName {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--color-fg-default);
+}
+
+.customerEmail {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--color-fg-muted);
+}
