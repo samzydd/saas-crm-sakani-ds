@@ -112,6 +112,7 @@ export function DashboardPage() {
         </Panel>
       </div>
 
+      <div className={styles.ordersActivityRow}>
       <Panel title="Recent orders" description="Track recent customer purchases and order progress.">
         <div className={styles.panelActionsRow}>
           <span />
@@ -136,6 +137,7 @@ export function DashboardPage() {
           })}
         </div>
       </Panel>
+      </div>
     </>
   );
 }

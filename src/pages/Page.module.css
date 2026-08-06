@@ -27,6 +27,13 @@
   grid-column: span 2;
 }
 
+.ordersActivityRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
 .panelActionsRow {
   display: flex;
   align-items: center;

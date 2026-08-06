@@ -39,6 +39,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  background: var(--color-bg-surface);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
 }
 
 .topbarLeft {
