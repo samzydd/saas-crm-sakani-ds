@@ -2,6 +2,7 @@ import { ShoppingBag, UserPlus, MessageSquare, RefreshCw } from 'lucide-react';
 import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
+import { PeriodDropdown } from '../components/PeriodDropdown';
 import styles from './Page.module.css';
 
 const revenue = [
@@ -82,7 +83,7 @@ export function DashboardPage() {
         <Panel title="Revenue trend" description="Track monthly revenue growth and identify sales trends.">
           <div className={styles.panelActionsRow}>
             <Badge variant="success" emphasis="subtle">6.4% up this month</Badge>
-            <Button variant="ghost" size="sm">Last 6 months</Button>
+            <PeriodDropdown />
           </div>
           <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="sm" />
         </Panel>
@@ -90,7 +91,7 @@ export function DashboardPage() {
         <Panel title="Customer growth" description="Measures customer acquisition, retention, and overall audience growth over time.">
           <div className={styles.panelActionsRow}>
             <Badge variant="success" emphasis="subtle">1.4% this month</Badge>
-            <Button variant="ghost" size="sm">Last 6 months</Button>
+            <PeriodDropdown />
           </div>
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
           <div className={styles.legendRowInline}>
@@ -103,11 +104,15 @@ export function DashboardPage() {
           <div className={styles.panelActionsRow}>
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
           </div>
-          <DonutChart data={channels} size="sm" centerValue="$2.44M" centerCaption="of revenue" />
-          <div className={styles.legendList}>
-            {channels.map((c, i) => (
-              <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
-            ))}
+          <div className={styles.chartLegendRow}>
+            <div className={styles.chartFixed} style={{ width: 160 }}>
+              <DonutChart data={channels} size="sm" centerValue="$2.44M" centerCaption="of revenue" />
+            </div>
+            <div className={styles.legendList}>
+              {channels.map((c, i) => (
+                <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
+              ))}
+            </div>
           </div>
         </Panel>
       </div>

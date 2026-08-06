@@ -38,10 +38,11 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   background: var(--color-bg-surface);
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
+  box-shadow: var(--shadow-sm);
 }
 
 .topbarLeft {

@@ -3,6 +3,7 @@ import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
+import { PeriodDropdown } from '../components/PeriodDropdown';
 import styles from './Page.module.css';
 
 const growth = [
@@ -94,7 +95,7 @@ export function SalesPage() {
         <Panel title="Acquisition vs retention" description="Track visitor acquisition and retention trends over time.">
           <div className={styles.panelActionsRow}>
             <Badge variant="success" emphasis="subtle">This month</Badge>
-            <Button variant="ghost" size="sm">Last 6 months</Button>
+            <PeriodDropdown />
           </div>
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
           <div className={styles.legendRowInline}>
@@ -108,11 +109,15 @@ export function SalesPage() {
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
             <Button variant="ghost" size="sm">View report</Button>
           </div>
-          <DonutChart data={channels} size="md" />
-          <div className={styles.legendList}>
-            {channels.map((c, i) => (
-              <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
-            ))}
+          <div className={styles.chartLegendRow}>
+            <div className={styles.chartFixed} style={{ width: 200 }}>
+              <DonutChart data={channels} size="md" />
+            </div>
+            <div className={styles.legendList}>
+              {channels.map((c, i) => (
+                <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
+              ))}
+            </div>
           </div>
         </Panel>
       </div>
@@ -128,11 +133,15 @@ export function SalesPage() {
         </Panel>
 
         <Panel title="Device breakdown" description="Sessions split across device types.">
-          <DonutChart data={devices} size="sm" />
-          <div className={styles.legendList}>
-            {devices.map((d, i) => (
-              <LegendRow key={d.label} colorIndex={i + 1} label={d.label} value={`${d.value}%`} />
-            ))}
+          <div className={styles.chartLegendRow}>
+            <div className={styles.chartFixed} style={{ width: 160 }}>
+              <DonutChart data={devices} size="sm" />
+            </div>
+            <div className={styles.legendList}>
+              {devices.map((d, i) => (
+                <LegendRow key={d.label} colorIndex={i + 1} label={d.label} value={`${d.value}%`} />
+              ))}
+            </div>
           </div>
         </Panel>
 
@@ -147,11 +156,15 @@ export function SalesPage() {
 
       <div className={styles.threeCol}>
         <Panel title="Payment methods" description="How customers are paying.">
-          <DonutChart data={payments} size="sm" />
-          <div className={styles.legendList}>
-            {payments.map((p, i) => (
-              <LegendRow key={p.label} colorIndex={i + 1} label={p.label} value={`${p.value}%`} />
-            ))}
+          <div className={styles.chartLegendRow}>
+            <div className={styles.chartFixed} style={{ width: 160 }}>
+              <DonutChart data={payments} size="sm" />
+            </div>
+            <div className={styles.legendList}>
+              {payments.map((p, i) => (
+                <LegendRow key={p.label} colorIndex={i + 1} label={p.label} value={`${p.value}%`} />
+              ))}
+            </div>
           </div>
         </Panel>
 

@@ -3,6 +3,7 @@ import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type Tab
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
+import { PeriodDropdown } from '../components/PeriodDropdown';
 import styles from './Page.module.css';
 
 const growth = [
@@ -100,7 +101,7 @@ export function CustomersPage() {
         <Panel title="Customer growth" description="Monitor customer growth over time.">
           <div className={styles.panelActionsRow}>
             <Badge variant="success" emphasis="subtle">This month</Badge>
-            <Button variant="ghost" size="sm">Last 6 months</Button>
+            <PeriodDropdown />
           </div>
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
           <div className={styles.legendRowInline}>
@@ -114,11 +115,15 @@ export function CustomersPage() {
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
             <Button variant="ghost" size="sm">View report</Button>
           </div>
-          <DonutChart data={segments} size="md" />
-          <div className={styles.legendList}>
-            {segments.map((s, i) => (
-              <LegendRow key={s.label} colorIndex={i + 1} label={s.label} value={`${s.value}%`} />
-            ))}
+          <div className={styles.chartLegendRow}>
+            <div className={styles.chartFixed} style={{ width: 200 }}>
+              <DonutChart data={segments} size="md" />
+            </div>
+            <div className={styles.legendList}>
+              {segments.map((s, i) => (
+                <LegendRow key={s.label} colorIndex={i + 1} label={s.label} value={`${s.value}%`} />
+              ))}
+            </div>
           </div>
         </Panel>
       </div>

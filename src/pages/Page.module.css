@@ -21,6 +21,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   align-items: stretch;
+  height: 334px;
 }
 
 .spanTwo {
@@ -70,6 +71,25 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
+}
+
+.chartLegendRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* DonutChart's own CSS is width:100%, which fights flex's auto-basis sizing
+   and collapses siblings to 0 — give it a fixed basis instead so the legend
+   gets its fair share of the row. */
+.chartFixed {
+  flex: 0 0 auto;
+}
+
+.chartLegendRow .legendList {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .activityList {
