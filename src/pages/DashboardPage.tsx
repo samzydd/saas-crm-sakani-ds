@@ -3,6 +3,7 @@ import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
+import { PeriodBadgeDropdown } from '../components/PeriodBadgeDropdown';
 import styles from './Page.module.css';
 
 const revenue = [
@@ -95,18 +96,14 @@ export function DashboardPage() {
 
         <Panel title="Customer growth" description="Measures customer acquisition, retention, and overall audience growth over time." className={styles.panelCanvas}>
           <div className={styles.panelActionsRow}>
-            <span className={styles.trendIndicator}>
-              <TrendingUp size={14} strokeWidth={2} />
-              1.4% this month
-            </span>
-            <PeriodDropdown />
+            <div className={styles.legendRowLeft}>
+              <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
+              <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
+            </div>
+            <PeriodBadgeDropdown />
           </div>
           <div className={styles.chartH176}>
             <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
-          </div>
-          <div className={styles.legendRowInline}>
-            <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
-            <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
           </div>
         </Panel>
 

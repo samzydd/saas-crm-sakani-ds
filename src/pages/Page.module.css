@@ -49,6 +49,12 @@
   gap: 20px;
 }
 
+.legendRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .legendItem {
   display: flex;
   align-items: center;
