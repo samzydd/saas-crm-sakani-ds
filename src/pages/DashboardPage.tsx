@@ -1,4 +1,4 @@
-import { ShoppingBag, UserPlus, MessageSquare, RefreshCw } from 'lucide-react';
+import { ShoppingBag, UserPlus, MessageSquare, RefreshCw, TrendingUp } from 'lucide-react';
 import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
@@ -80,27 +80,37 @@ export function DashboardPage() {
       </div>
 
       <div className={styles.threeCol}>
-        <Panel title="Revenue trend" description="Track monthly revenue growth and identify sales trends.">
+        <Panel title="Revenue trend" description="Track monthly revenue growth and identify sales trends." className={styles.panelCanvas}>
           <div className={styles.panelActionsRow}>
-            <Badge variant="success" emphasis="subtle">6.4% up this month</Badge>
+            <span className={styles.trendIndicator}>
+              <TrendingUp size={14} strokeWidth={2} />
+              6.4% up this month
+            </span>
             <PeriodDropdown />
           </div>
-          <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="sm" />
+          <div className={styles.chartH176}>
+            <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="sm" />
+          </div>
         </Panel>
 
-        <Panel title="Customer growth" description="Measures customer acquisition, retention, and overall audience growth over time.">
+        <Panel title="Customer growth" description="Measures customer acquisition, retention, and overall audience growth over time." className={styles.panelCanvas}>
           <div className={styles.panelActionsRow}>
-            <Badge variant="success" emphasis="subtle">1.4% this month</Badge>
+            <span className={styles.trendIndicator}>
+              <TrendingUp size={14} strokeWidth={2} />
+              1.4% this month
+            </span>
             <PeriodDropdown />
           </div>
-          <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
+          <div className={styles.chartH176}>
+            <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
+          </div>
           <div className={styles.legendRowInline}>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
           </div>
         </Panel>
 
-        <Panel title="Sales channel" description="Compare revenue contribution across your primary sales channels.">
+        <Panel title="Sales channel" description="Compare revenue contribution across your primary sales channels." className={styles.panelCanvas}>
           <div className={styles.panelActionsRow}>
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
           </div>

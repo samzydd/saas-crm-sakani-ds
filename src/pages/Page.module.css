@@ -174,3 +174,26 @@
   font-size: 12px;
   color: var(--color-fg-muted);
 }
+
+/* Override Panel's default bg/surface fill — !important since Panel.module.css
+   and Page.module.css load in an unpredictable order, both single-class rules. */
+.panelCanvas {
+  background: var(--color-bg-canvas) !important;
+}
+
+/* Force Recharts' own inline-styled height (set via a JS `height` prop, not
+   CSS) down to an exact 176px — !important is required to beat an inline
+   style at all. */
+.chartH176 :global(.recharts-responsive-container) {
+  height: 176px !important;
+}
+
+.trendIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-success-fg);
+}
