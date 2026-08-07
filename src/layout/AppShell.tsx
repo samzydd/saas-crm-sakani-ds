@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
-  LayoutGrid, TrendingUp, Users, Package, Megaphone, BarChart3, Workflow,
-  Users2, Plug, Settings, Search, PanelRightOpen,
+  LayoutPanelTop, ChartColumnBig, CircleUser, Boxes, Megaphone, ChartPie, Settings2,
+  UsersRound, PlugZap, Settings, Search, PanelRightOpen,
 } from 'lucide-react';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
@@ -14,25 +14,25 @@ const NAV = [
   {
     label: 'OVERVIEW',
     items: [
-      { to: '/', icon: LayoutGrid, label: 'Dashboard' },
-      { to: '/sales', icon: TrendingUp, label: 'Sales' },
-      { to: '/customers', icon: Users, label: 'Customers' },
-      { to: '/products', icon: Package, label: 'Products' },
+      { to: '/', icon: LayoutPanelTop, label: 'Dashboard' },
+      { to: '/sales', icon: ChartColumnBig, label: 'Sales' },
+      { to: '/customers', icon: CircleUser, label: 'Customers' },
+      { to: '/products', icon: Boxes, label: 'Products' },
     ],
   },
   {
     label: 'GROWTH',
     items: [
       { to: '/marketing', icon: Megaphone, label: 'Marketing' },
-      { to: '/analytics', icon: BarChart3, label: 'Analytics' },
-      { to: '/operations', icon: Workflow, label: 'Operations' },
+      { to: '/analytics', icon: ChartPie, label: 'Analytics' },
+      { to: '/operations', icon: Settings2, label: 'Operations' },
     ],
   },
   {
     label: 'ADMINISTRATION',
     items: [
-      { to: '/team', icon: Users2, label: 'Team' },
-      { to: '/integrations', icon: Plug, label: 'Integrations' },
+      { to: '/team', icon: UsersRound, label: 'Team' },
+      { to: '/integrations', icon: PlugZap, label: 'Integrations' },
       { to: '/settings', icon: Settings, label: 'Settings' },
     ],
   },
@@ -91,15 +91,16 @@ export function AppShell() {
       <div className={styles.main}>
         <TopBar
           type="minimal"
-          onToggle={() => setCollapsed((c) => !c)}
+          showToggle={false}
           left={
             <div className={styles.topbarLeft}>
               <CurrentIcon size={18} strokeWidth={1.5} aria-hidden="true" />
               <span className={styles.topbarTitle}>{current.label}</span>
-              <IconButton icon={Search} variant="ghost" size="sm" aria-label="Search" />
             </div>
           }
+          rightSlot={<IconButton icon={Search} variant="ghost" size="sm" aria-label="Search" />}
           showActions
+          showHelp={false}
           hasUnread
           account={
             <div className={styles.accountWrap}>
