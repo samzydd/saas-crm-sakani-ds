@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutGrid, TrendingUp, Users, Package, Megaphone, BarChart3, Workflow,
-  Users2, Plug, Settings, Search,
+  Users2, Plug, Settings, Search, PanelRightOpen,
 } from 'lucide-react';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
@@ -44,17 +44,26 @@ export function AppShell() {
   const location = useLocation();
   const navigate = useNavigate();
   const [accountOpen, setAccountOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const current = ALL_ITEMS.find((item) => item.to === location.pathname) ?? ALL_ITEMS[0];
   const CurrentIcon = current.icon;
 
   return (
     <div className={styles.root}>
-      <Sidebar>
-        <SidebarHeader type="workspace" title="csakani" subtitle="Workspace" logo="S" />
+      <Sidebar collapsed={collapsed}>
+        <SidebarHeader
+          type="brand-toggle"
+          title="csakani"
+          subtitle="Workspace"
+          logo="S"
+          collapsed={collapsed}
+          onToggle={() => setCollapsed((c) => !c)}
+          toggleIcon={PanelRightOpen}
+        />
         <div className={styles.navScroll}>
           {NAV.map((group) => (
             <div key={group.label} className={styles.navGroup}>
-              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              {!collapsed && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
               {group.items.map((item) => (
                 <SidebarItem
                   key={item.to}
@@ -62,23 +71,27 @@ export function AppShell() {
                   label={item.label}
                   active={location.pathname === item.to}
                   onClick={() => navigate(item.to)}
+                  collapsed={collapsed}
                 />
               ))}
             </div>
           ))}
         </div>
-        <div className={styles.promoWrap}>
-          <SidebarPromo
-            title="Upgrade to Pro"
-            description="Unlock advanced reporting and unlimited seats."
-            ctaLabel="Upgrade now"
-          />
-        </div>
+        {!collapsed && (
+          <div className={styles.promoWrap}>
+            <SidebarPromo
+              title="Upgrade to Pro"
+              description="Unlock advanced reporting and unlimited seats."
+              ctaLabel="Upgrade now"
+            />
+          </div>
+        )}
       </Sidebar>
 
       <div className={styles.main}>
         <TopBar
           type="minimal"
+          onToggle={() => setCollapsed((c) => !c)}
           left={
             <div className={styles.topbarLeft}>
               <CurrentIcon size={18} strokeWidth={1.5} aria-hidden="true" />
