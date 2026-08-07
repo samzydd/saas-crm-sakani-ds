@@ -1,13 +1,14 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutPanelTop, ChartColumnBig, CircleUser, Boxes, Megaphone, ChartPie, Settings2,
-  UsersRound, PlugZap, Settings, Search, PanelRightOpen,
+  UsersRound, PlugZap, Settings, PanelRightOpen,
 } from 'lucide-react';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
-  TopBar, IconButton, Avatar, Menu, MenuItem,
+  TopBar, Avatar, Menu, MenuItem,
 } from 'sakani-design-system';
 import { useState } from 'react';
+import { SearchExpand } from '../components/SearchExpand';
 import styles from './AppShell.module.css';
 
 const NAV = [
@@ -98,7 +99,7 @@ export function AppShell() {
               <span className={styles.topbarTitle}>{current.label}</span>
             </div>
           }
-          rightSlot={<IconButton icon={Search} variant="ghost" size="sm" aria-label="Search" />}
+          rightSlot={<SearchExpand />}
           showActions
           showHelp={false}
           hasUnread

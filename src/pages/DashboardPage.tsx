@@ -1,5 +1,5 @@
-import { ShoppingBag, UserPlus, MessageSquare, RefreshCw, TrendingUp } from 'lucide-react';
-import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
+import { Package, Warehouse, FileText, Megaphone, Building2, TrendingUp, ChevronRight } from 'lucide-react';
+import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
@@ -52,11 +52,49 @@ const STATUS_VARIANT = {
   Active: 'success', Failed: 'danger', Pending: 'warning', Completed: 'neutral',
 } as const;
 
-const activity = [
-  { name: 'Emily Johnson', text: 'created a new product.', icon: ShoppingBag },
-  { name: 'Noah Kim', text: 'signed up as a new customer.', icon: UserPlus },
-  { name: 'Sophia Lee', text: 'left a review on Order #2483.', icon: MessageSquare },
-  { name: 'Ethan Walker', text: 'requested a refund for Order #2484.', icon: RefreshCw },
+type ActivitySegment = { text: string; muted?: boolean };
+type ActivityItem = {
+  avatar?: string;
+  avatarGroup?: { src: string; alt: string }[];
+  icon?: typeof Package;
+  segments: ActivitySegment[];
+};
+
+const activity: ActivityItem[] = [
+  {
+    avatar: '/avatars/emily-johnson.png',
+    segments: [{ text: 'Emily Johnson ' }, { text: 'created a', muted: true }, { text: ' new product.' }],
+  },
+  {
+    icon: Package,
+    segments: [{ text: 'Order ORD-24086 ' }, { text: 'was', muted: true }, { text: ' shipped.' }],
+  },
+  {
+    icon: Warehouse,
+    segments: [{ text: 'Warehouse inventory ' }, { text: 'synced', muted: true }, { text: ' successfully.' }],
+  },
+  {
+    avatarGroup: [
+      { src: '/avatars/michael-evans.png', alt: 'Michael Evans' },
+      { src: '/avatars/sarah-williams.png', alt: 'Sarah Williams' },
+    ],
+    segments: [{ text: 'Michael Evans ' }, { text: 'invited', muted: true }, { text: ' Sarah Williams.' }],
+  },
+  {
+    icon: FileText,
+    segments: [{ text: 'Weekly revenue report generated.' }],
+  },
+  {
+    icon: Megaphone,
+    segments: [
+      { text: 'Marketing ' }, { text: 'campaign', muted: true },
+      { text: ' "Summer Sale" ' }, { text: 'started', muted: true }, { text: '.' },
+    ],
+  },
+  {
+    icon: Building2,
+    segments: [{ text: 'New', muted: true }, { text: ' enterprise customer ' }, { text: 'onboarded', muted: true }, { text: '.' }],
+  },
 ];
 
 export function DashboardPage() {
@@ -139,11 +177,19 @@ export function DashboardPage() {
             const Icon = a.icon;
             return (
               <div key={i} className={styles.activityRow}>
-                <Avatar size="sm" initials={a.name.split(' ').map((n) => n[0]).join('')} />
+                {a.avatarGroup ? (
+                  <AvatarGroup size="sm" avatars={a.avatarGroup} />
+                ) : a.avatar ? (
+                  <Avatar size="sm" src={a.avatar} alt="" />
+                ) : Icon ? (
+                  <span className={styles.activityIconWrap}><Icon size={18} strokeWidth={1.5} /></span>
+                ) : null}
                 <p className={styles.activityText}>
-                  <strong>{a.name}</strong> <span className={styles.activityMuted}>{a.text}</span>
+                  {a.segments.map((s, j) => (
+                    <span key={j} className={s.muted ? styles.activityMuted : undefined}>{s.text}</span>
+                  ))}
                 </p>
-                <Icon size={18} strokeWidth={1.5} className={styles.activityIcon} />
+                <ChevronRight size={16} strokeWidth={1.5} className={styles.activityChevron} />
               </div>
             );
           })}

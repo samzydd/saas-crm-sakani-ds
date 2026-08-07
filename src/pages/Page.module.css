@@ -110,8 +110,10 @@
   gap: 12px;
   padding: 10px 12px;
   border-radius: var(--radius-md, 8px);
-  background: var(--color-bg-subtle);
+  background: transparent;
+  transition: background-color var(--transition-base);
 }
+.activityRow:hover { background: var(--color-bg-subtle); }
 
 .activityText {
   flex: 1;
@@ -119,19 +121,34 @@
   margin: 0;
   font-family: var(--font-sans);
   font-size: 13px;
+  font-weight: 500;
   line-height: 18px;
   color: var(--color-fg-default);
 }
 
 .activityMuted {
   color: var(--color-fg-muted);
-  font-weight: 400;
 }
 
-.activityIcon {
+.activityIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-muted);
+}
+
+.activityChevron {
   color: var(--color-fg-muted);
   flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
+.activityRow:hover .activityChevron { opacity: 1; }
 
 .miniStatsRow {
   display: flex;
