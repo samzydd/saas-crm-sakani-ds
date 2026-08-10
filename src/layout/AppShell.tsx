@@ -103,6 +103,7 @@ export function AppShell() {
           showActions
           showHelp={false}
           hasUnread
+          accountOpen={accountOpen}
           account={
             <div className={styles.accountWrap}>
               <button
@@ -112,7 +113,7 @@ export function AppShell() {
                 aria-haspopup="menu"
                 aria-expanded={accountOpen}
               >
-                <Avatar size="sm" initials="SD" />
+                <Avatar size="md" src="/avatars/account.png" alt="Account" />
               </button>
               {accountOpen && (
                 <div className={styles.accountMenu}>
