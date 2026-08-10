@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button, Menu, MenuItem } from 'sakani-design-system';
 import styles from './PeriodDropdown.module.css';
 
@@ -48,7 +48,8 @@ export function PeriodDropdown({
       <Button
         variant="ghost"
         size="sm"
-        rightIcon={<ChevronDown size={16} strokeWidth={1.5} />}
+        className={styles.trigger}
+        rightIcon={open ? <ChevronUp size={16} strokeWidth={1.5} /> : <ChevronDown size={16} strokeWidth={1.5} />}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}

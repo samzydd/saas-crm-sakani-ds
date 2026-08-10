@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { Package, Warehouse, FileText, Megaphone, Building2, TrendingUp, ChevronRight } from 'lucide-react';
 import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
+import { randomRevenue, randomGrowth, randomShares } from '../lib/randomChartData';
 import styles from './Page.module.css';
 
-const revenue = [
+const INITIAL_REVENUE = [
   { label: 'Jan', revenue: 320000 },
   { label: 'Feb', revenue: 356000 },
   { label: 'Mar', revenue: 341000 },
@@ -14,7 +16,7 @@ const revenue = [
   { label: 'Jun', revenue: 452000 },
 ];
 
-const growth = [
+const INITIAL_GROWTH = [
   { label: 'Jan', Acquisition: 4200, Retention: 3800 },
   { label: 'Feb', Acquisition: 4600, Retention: 3950 },
   { label: 'Mar', Acquisition: 4400, Retention: 4100 },
@@ -23,7 +25,7 @@ const growth = [
   { label: 'Jun', Acquisition: 5900, Retention: 4800 },
 ];
 
-const channels = [
+const INITIAL_CHANNELS = [
   { label: 'Website', value: 48 },
   { label: 'Mobile app', value: 27 },
   { label: 'Marketplace', value: 18 },
@@ -97,6 +99,10 @@ const activity: ActivityItem[] = [
 ];
 
 export function DashboardPage() {
+  const [revenue, setRevenue] = useState(INITIAL_REVENUE);
+  const [growth, setGrowth] = useState(INITIAL_GROWTH);
+  const [channels, setChannels] = useState(INITIAL_CHANNELS);
+
   const columns: TableColumn<Order>[] = [
     { key: 'order', header: 'Order' },
     { key: 'customer', header: 'Customer' },
@@ -126,7 +132,7 @@ export function DashboardPage() {
             <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
               6.4% up this month
             </Badge>
-            <PeriodDropdown />
+            <PeriodDropdown onChange={() => setRevenue(randomRevenue())} />
           </>}
         >
           <div className={styles.chartH176}>
@@ -143,7 +149,7 @@ export function DashboardPage() {
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
             </div>
-            <PeriodDropdown />
+            <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
           <div className={styles.chartH176}>
@@ -163,6 +169,7 @@ export function DashboardPage() {
               defaultValue="This month"
               options={['This month', 'Last month', 'This quarter', 'This year']}
               formatLabel={(v) => v}
+              onChange={() => setChannels(randomShares(INITIAL_CHANNELS))}
             />
           </>}
         >

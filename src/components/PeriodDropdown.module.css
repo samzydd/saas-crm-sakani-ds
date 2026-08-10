@@ -3,6 +3,10 @@
   display: inline-flex;
 }
 
+.trigger {
+  background: var(--color-bg-surface);
+}
+
 .menu {
   position: absolute;
   top: calc(100% + 6px);

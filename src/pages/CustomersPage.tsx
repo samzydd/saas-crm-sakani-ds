@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { Search, Eye, ShoppingCart, CheckCircle2, Star, Gauge, MessageCircle } from 'lucide-react';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
+import { randomGrowth } from '../lib/randomChartData';
 import styles from './Page.module.css';
 
-const growth = [
+const INITIAL_GROWTH = [
   { label: 'Jan', Acquisition: 3200, Retention: 2900 },
   { label: 'Feb', Acquisition: 3450, Retention: 3050 },
   { label: 'Mar', Acquisition: 3600, Retention: 3200 },
@@ -66,6 +68,7 @@ const customers: Customer[] = [
 ];
 
 export function CustomersPage() {
+  const [growth, setGrowth] = useState(INITIAL_GROWTH);
   const columns: TableColumn<Customer>[] = [
     {
       key: 'name', header: 'Customer',
@@ -103,7 +106,7 @@ export function CustomersPage() {
           description="Monitor customer growth over time."
           actions={<>
             <Badge variant="success" emphasis="subtle">This month</Badge>
-            <PeriodDropdown />
+            <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />

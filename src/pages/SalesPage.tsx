@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2, Flag } from 'lucide-react';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
+import { randomGrowth } from '../lib/randomChartData';
 import styles from './Page.module.css';
 
-const growth = [
+const INITIAL_GROWTH = [
   { label: 'Jan', Acquisition: 3800, Retention: 3200 },
   { label: 'Feb', Acquisition: 4100, Retention: 3400 },
   { label: 'Mar', Acquisition: 3950, Retention: 3550 },
@@ -75,6 +77,7 @@ const products: ProductRow[] = [
 ];
 
 export function SalesPage() {
+  const [growth, setGrowth] = useState(INITIAL_GROWTH);
   const columns: TableColumn<ProductRow>[] = [
     { key: 'order', header: 'Order' },
     { key: 'revenue', header: 'Revenue', align: 'right' },
@@ -97,7 +100,7 @@ export function SalesPage() {
           description="Track visitor acquisition and retention trends over time."
           actions={<>
             <Badge variant="success" emphasis="subtle">This month</Badge>
-            <PeriodDropdown />
+            <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
