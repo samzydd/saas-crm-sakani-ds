@@ -15,13 +15,11 @@ interface PanelProps {
 export function Panel({ title, description, actions, children, className }: PanelProps) {
   return (
     <div className={[styles.panel, className ?? ''].filter(Boolean).join(' ')}>
-      <div className={styles.head}>
-        <div className={styles.headText}>
-          <h3 className={styles.title}>{title}</h3>
-          {description && <p className={styles.description}>{description}</p>}
-        </div>
-        {actions && <div className={styles.actions}>{actions}</div>}
+      <div className={styles.headText}>
+        <h3 className={styles.title}>{title}</h3>
+        {description && <p className={styles.description}>{description}</p>}
       </div>
+      {actions && <div className={styles.actions}>{actions}</div>}
       {children}
     </div>
   );

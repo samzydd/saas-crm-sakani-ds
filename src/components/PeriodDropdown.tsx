@@ -3,15 +3,22 @@ import { ChevronDown } from 'lucide-react';
 import { Button, Menu, MenuItem } from 'sakani-design-system';
 import styles from './PeriodDropdown.module.css';
 
-const OPTIONS = ['1 month', '2 months', '3 months', '6 months'];
+const DEFAULT_OPTIONS = ['1 month', '2 months', '3 months', '6 months'];
 
 interface PeriodDropdownProps {
   defaultValue?: string;
+  options?: string[];
+  /** Formats the trigger/menu-item label from a raw option value. Defaults to "Last {value}". */
+  formatLabel?: (value: string) => string;
   onChange?: (value: string) => void;
 }
 
-/** "Last N months" chart-range picker — ghost/sm button that opens a Menu. */
-export function PeriodDropdown({ defaultValue = '6 months', onChange }: PeriodDropdownProps) {
+/** Chart-range picker — ghost/sm button that opens a Menu. Defaults to the
+ * "Last N months" set, but accepts custom options/label formatting (e.g.
+ * "This month" style pickers). */
+export function PeriodDropdown({
+  defaultValue = '6 months', options = DEFAULT_OPTIONS, formatLabel = (v) => `Last ${v}`, onChange,
+}: PeriodDropdownProps) {
   const [value, setValue] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -46,18 +53,18 @@ export function PeriodDropdown({ defaultValue = '6 months', onChange }: PeriodDr
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
-        Last {value}
+        {formatLabel(value)}
       </Button>
       {open && (
         <div className={styles.menu}>
           <Menu aria-label="Select time range">
-            {OPTIONS.map((option) => (
+            {options.map((option) => (
               <MenuItem
                 key={option}
                 state={option === value ? 'checked' : 'default'}
                 onSelect={() => select(option)}
               >
-                Last {option}
+                {formatLabel(option)}
               </MenuItem>
             ))}
           </Menu>

@@ -3,7 +3,6 @@ import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
-import { PeriodBadgeDropdown } from '../components/PeriodBadgeDropdown';
 import styles from './Page.module.css';
 
 const revenue = [
@@ -145,7 +144,7 @@ export function DashboardPage() {
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
             </div>
-            <PeriodBadgeDropdown />
+            <PeriodDropdown />
           </>}
         >
           <div className={styles.chartH176}>
@@ -157,7 +156,17 @@ export function DashboardPage() {
           title="Sales channel"
           description="Compare revenue contribution across your primary sales channels."
           className={styles.panelCanvas}
-          actions={<Badge variant="neutral" emphasis="subtle">This month</Badge>}
+          actions={<>
+            <span className={styles.trendIndicator}>
+              <TrendingUp size={14} strokeWidth={2} />
+              1.4% this month
+            </span>
+            <PeriodDropdown
+              defaultValue="This month"
+              options={['This month', 'Last month', 'This quarter', 'This year']}
+              formatLabel={(v) => v}
+            />
+          </>}
         >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 160 }}>
