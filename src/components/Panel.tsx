@@ -21,12 +21,12 @@ export function Panel({ title, description, actions, actionsInline, children, cl
   return (
     <div className={[styles.panel, className ?? ''].filter(Boolean).join(' ')}>
       {actionsInline ? (
-        <div className={styles.headerBlock}>
-          <div className={styles.titleRow}>
+        <div className={styles.headerRow}>
+          <div className={styles.headerBlock}>
             <h3 className={styles.title}>{title}</h3>
-            {actions && <div className={styles.actions}>{actions}</div>}
+            {description && <p className={styles.description}>{description}</p>}
           </div>
-          {description && <p className={styles.description}>{description}</p>}
+          {actions && <div className={styles.actions}>{actions}</div>}
         </div>
       ) : (
         <>

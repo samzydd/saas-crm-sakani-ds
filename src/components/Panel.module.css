@@ -17,17 +17,17 @@
   gap: 2px;
 }
 
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
 .headerBlock {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.titleRow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
 }
 
 .title {
