@@ -204,12 +204,3 @@
   height: 176px !important;
 }
 
-.trendIndicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-success-fg);
-}

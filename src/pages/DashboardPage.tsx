@@ -123,10 +123,9 @@ export function DashboardPage() {
           description="Track monthly revenue growth and identify sales trends."
           className={styles.panelCanvas}
           actions={<>
-            <span className={styles.trendIndicator}>
-              <TrendingUp size={14} strokeWidth={2} />
+            <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
               6.4% up this month
-            </span>
+            </Badge>
             <PeriodDropdown />
           </>}
         >
@@ -157,10 +156,9 @@ export function DashboardPage() {
           description="Compare revenue contribution across your primary sales channels."
           className={styles.panelCanvas}
           actions={<>
-            <span className={styles.trendIndicator}>
-              <TrendingUp size={14} strokeWidth={2} />
+            <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
               1.4% this month
-            </span>
+            </Badge>
             <PeriodDropdown
               defaultValue="This month"
               options={['This month', 'Last month', 'This quarter', 'This year']}
