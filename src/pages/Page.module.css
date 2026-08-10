@@ -35,13 +35,6 @@
   align-items: stretch;
 }
 
-.panelActionsRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
 .legendRowInline {
   display: flex;
   align-items: center;

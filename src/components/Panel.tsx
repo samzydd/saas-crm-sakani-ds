@@ -16,10 +16,12 @@ export function Panel({ title, description, actions, children, className }: Pane
   return (
     <div className={[styles.panel, className ?? ''].filter(Boolean).join(' ')}>
       <div className={styles.head}>
-        <h3 className={styles.title}>{title}</h3>
-        {description && <p className={styles.description}>{description}</p>}
+        <div className={styles.headText}>
+          <h3 className={styles.title}>{title}</h3>
+          {description && <p className={styles.description}>{description}</p>}
+        </div>
+        {actions && <div className={styles.actions}>{actions}</div>}
       </div>
-      {actions && <div className={styles.actions}>{actions}</div>}
       {children}
     </div>
   );

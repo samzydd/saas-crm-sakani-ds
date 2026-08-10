@@ -92,11 +92,14 @@ export function SalesPage() {
       </div>
 
       <div className={styles.chartsRow2}>
-        <Panel title="Acquisition vs retention" description="Track visitor acquisition and retention trends over time.">
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Acquisition vs retention"
+          description="Track visitor acquisition and retention trends over time."
+          actions={<>
             <Badge variant="success" emphasis="subtle">This month</Badge>
             <PeriodDropdown />
-          </div>
+          </>}
+        >
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
           <div className={styles.legendRowInline}>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
@@ -104,11 +107,14 @@ export function SalesPage() {
           </div>
         </Panel>
 
-        <Panel title="Channel breakdown" description="Where this month's revenue is coming from.">
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Channel breakdown"
+          description="Where this month's revenue is coming from."
+          actions={<>
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
-            <Button variant="ghost" size="sm">View report</Button>
-          </div>
+            <Button variant="outline" size="sm">View report</Button>
+          </>}
+        >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 200 }}>
               <DonutChart data={channels} size="md" />

@@ -98,11 +98,14 @@ export function CustomersPage() {
       </div>
 
       <div className={styles.chartsRow2}>
-        <Panel title="Customer growth" description="Monitor customer growth over time.">
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Customer growth"
+          description="Monitor customer growth over time."
+          actions={<>
             <Badge variant="success" emphasis="subtle">This month</Badge>
             <PeriodDropdown />
-          </div>
+          </>}
+        >
           <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
           <div className={styles.legendRowInline}>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
@@ -110,11 +113,14 @@ export function CustomersPage() {
           </div>
         </Panel>
 
-        <Panel title="Customer segments" description="Breakdown of customers by lifecycle stage.">
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Customer segments"
+          description="Breakdown of customers by lifecycle stage."
+          actions={<>
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
-            <Button variant="ghost" size="sm">View report</Button>
-          </div>
+            <Button variant="outline" size="sm">View report</Button>
+          </>}
+        >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 200 }}>
               <DonutChart data={segments} size="md" />
@@ -155,11 +161,11 @@ export function CustomersPage() {
         </Panel>
       </div>
 
-      <Panel title="All customers" description="Complete customer directory.">
-        <div className={styles.panelActionsRow}>
-          <span />
-          <Button variant="ghost" size="sm">View all</Button>
-        </div>
+      <Panel
+        title="All customers"
+        description="Complete customer directory."
+        actions={<Button variant="outline" size="sm">View all</Button>}
+      >
         <Table<Customer> columns={columns} rows={customers} rowKey={(r) => r.email} />
       </Panel>
     </>

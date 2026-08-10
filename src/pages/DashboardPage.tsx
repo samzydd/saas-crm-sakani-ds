@@ -119,36 +119,46 @@ export function DashboardPage() {
       </div>
 
       <div className={styles.threeCol}>
-        <Panel title="Revenue trend" description="Track monthly revenue growth and identify sales trends." className={styles.panelCanvas}>
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Revenue trend"
+          description="Track monthly revenue growth and identify sales trends."
+          className={styles.panelCanvas}
+          actions={<>
             <span className={styles.trendIndicator}>
               <TrendingUp size={14} strokeWidth={2} />
               6.4% up this month
             </span>
             <PeriodDropdown />
-          </div>
+          </>}
+        >
           <div className={styles.chartH176}>
             <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="sm" />
           </div>
         </Panel>
 
-        <Panel title="Customer growth" description="Measures customer acquisition, retention, and overall audience growth over time." className={styles.panelCanvas}>
-          <div className={styles.panelActionsRow}>
+        <Panel
+          title="Customer growth"
+          description="Measures customer acquisition, retention, and overall audience growth over time."
+          className={styles.panelCanvas}
+          actions={<>
             <div className={styles.legendRowLeft}>
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
               <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
             </div>
             <PeriodBadgeDropdown />
-          </div>
+          </>}
+        >
           <div className={styles.chartH176}>
             <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
           </div>
         </Panel>
 
-        <Panel title="Sales channel" description="Compare revenue contribution across your primary sales channels." className={styles.panelCanvas}>
-          <div className={styles.panelActionsRow}>
-            <Badge variant="neutral" emphasis="subtle">This month</Badge>
-          </div>
+        <Panel
+          title="Sales channel"
+          description="Compare revenue contribution across your primary sales channels."
+          className={styles.panelCanvas}
+          actions={<Badge variant="neutral" emphasis="subtle">This month</Badge>}
+        >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 160 }}>
               <DonutChart data={channels} size="sm" centerValue="$2.44M" centerCaption="of revenue" />
@@ -163,11 +173,11 @@ export function DashboardPage() {
       </div>
 
       <div className={styles.ordersActivityRow}>
-      <Panel title="Recent orders" description="Track recent customer purchases and order progress.">
-        <div className={styles.panelActionsRow}>
-          <span />
-          <Button variant="ghost" size="sm">View all</Button>
-        </div>
+      <Panel
+        title="Recent orders"
+        description="Track recent customer purchases and order progress."
+        actions={<Button variant="outline" size="sm">View all</Button>}
+      >
         <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
       </Panel>
 

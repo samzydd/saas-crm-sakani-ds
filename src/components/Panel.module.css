@@ -13,8 +13,17 @@
 
 .head {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.headText {
+  display: flex;
   flex-direction: column;
   gap: 2px;
+  flex: 1 1 0;
+  min-width: 64px;
 }
 
 .title {
@@ -24,6 +33,9 @@
   font-weight: 600;
   line-height: 24px;
   color: var(--color-fg-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .description {
@@ -33,11 +45,16 @@
   font-weight: 500;
   line-height: 18px;
   color: var(--color-fg-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 8px;
+  min-width: 0;
 }
