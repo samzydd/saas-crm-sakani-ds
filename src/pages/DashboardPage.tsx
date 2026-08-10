@@ -192,6 +192,7 @@ export function DashboardPage() {
         description="Track recent customer purchases and order progress."
         actions={<Button variant="outline" size="sm">View all</Button>}
         actionsInline
+        className={styles.spanTwo}
       >
         <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
       </Panel>
