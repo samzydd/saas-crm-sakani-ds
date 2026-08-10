@@ -28,6 +28,18 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* .actions defaults to width:100% for its standalone-row usage (chart
+ * panels) -- inside headerRow it's a sibling of headerBlock instead, so
+ * let it size to its own content and headerBlock absorb the space,
+ * otherwise a single-child .actions left-aligns via its own
+ * space-between instead of sitting flush right. */
+.headerRow > .actions {
+  width: auto;
+  flex-shrink: 0;
 }
 
 .title {
