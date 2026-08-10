@@ -11,6 +11,9 @@
   flex: 1;
   overflow-y: auto;
   padding-top: 8px;
+  /* overflow-y:auto forces overflow-x to auto too, which clips SidebarItem's
+   * active-bar left:-1px offset -- 1px buffer absorbs it. */
+  padding-left: 1px;
 }
 
 .navGroup {
