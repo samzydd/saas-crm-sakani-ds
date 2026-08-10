@@ -5,9 +5,9 @@ import {
 } from 'lucide-react';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
-  TopBar, Avatar, Menu, MenuItem,
+  TopBar, Avatar, Menu, MenuItem, Tooltip,
 } from 'sakani-design-system';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { SearchExpand } from '../components/SearchExpand';
 import styles from './AppShell.module.css';
 
@@ -61,20 +61,29 @@ export function AppShell() {
           onToggle={() => setCollapsed((c) => !c)}
           toggleIcon={PanelRightOpen}
         />
-        <div className={styles.navScroll}>
+        <div className={[styles.navScroll, collapsed ? styles['navScroll--collapsed'] : ''].filter(Boolean).join(' ')}>
           {NAV.map((group) => (
             <div key={group.label} className={styles.navGroup}>
               {!collapsed && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
-              {group.items.map((item) => (
-                <SidebarItem
-                  key={item.to}
-                  icon={item.icon}
-                  label={item.label}
-                  active={location.pathname === item.to}
-                  onClick={() => navigate(item.to)}
-                  collapsed={collapsed}
-                />
-              ))}
+              {group.items.map((item) => {
+                const navItem = (
+                  <SidebarItem
+                    icon={item.icon}
+                    label={item.label}
+                    active={location.pathname === item.to}
+                    onClick={() => navigate(item.to)}
+                    collapsed={collapsed}
+                    nativeTooltip={!collapsed}
+                  />
+                );
+                return collapsed ? (
+                  <Tooltip key={item.to} title={item.label} pointer="center-right">
+                    {navItem}
+                  </Tooltip>
+                ) : (
+                  <Fragment key={item.to}>{navItem}</Fragment>
+                );
+              })}
             </div>
           ))}
         </div>

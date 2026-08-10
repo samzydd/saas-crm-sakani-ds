@@ -16,6 +16,10 @@
   padding-left: 1px;
 }
 
+.navScroll--collapsed {
+  justify-content: center;
+}
+
 .navGroup {
   display: flex;
   flex-direction: column;
