@@ -184,11 +184,12 @@ export function DashboardPage() {
         title="Recent orders"
         description="Track recent customer purchases and order progress."
         actions={<Button variant="outline" size="sm">View all</Button>}
+        actionsInline
       >
         <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
       </Panel>
 
-      <Panel title="Recent activity" description="Latest system and team activity.">
+      <Panel title="Recent activity" description="Latest system and team activity." actionsInline>
         <div className={styles.activityList}>
           {activity.map((a, i) => {
             const Icon = a.icon;

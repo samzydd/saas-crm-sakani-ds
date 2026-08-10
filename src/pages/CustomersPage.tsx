@@ -165,6 +165,7 @@ export function CustomersPage() {
         title="All customers"
         description="Complete customer directory."
         actions={<Button variant="outline" size="sm">View all</Button>}
+        actionsInline
       >
         <Table<Customer> columns={columns} rows={customers} rowKey={(r) => r.email} />
       </Panel>
