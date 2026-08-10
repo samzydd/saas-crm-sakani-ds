@@ -17,6 +17,12 @@
   gap: 2px;
 }
 
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .titleRow {
   display: flex;
   align-items: flex-start;
