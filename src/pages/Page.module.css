@@ -216,6 +216,21 @@
   color: var(--color-fg-muted);
 }
 
+.productCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.productName {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Override Panel's default bg/surface fill — !important since Panel.module.css
    and Page.module.css load in an unpredictable order, both single-class rules. */
 .panelCanvas {

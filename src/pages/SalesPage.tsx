@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2 } from 'lucide-react';
-import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from 'sakani-design-system';
+import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
@@ -74,22 +74,30 @@ function withFillPercent<T extends { value: string }>(rows: T[]): (T & { fillPer
 
 interface ProductRow {
   order: string;
+  image: string;
   revenue: string;
   unitsSold: string;
 }
 
 const products: ProductRow[] = [
-  { order: 'Wireless Earbuds Pro', revenue: '$84,200', unitsSold: '2,140' },
-  { order: 'Classic Leather Wallet', revenue: '$61,540', unitsSold: '3,920' },
-  { order: 'Smart Fitness Band', revenue: '$58,910', unitsSold: '1,860' },
-  { order: 'Ceramic Pour-Over Set', revenue: '$41,300', unitsSold: '2,510' },
-  { order: 'Canvas Weekender Bag', revenue: '$36,780', unitsSold: '1,240' },
+  { order: 'Wireless Headphones Pro', image: '/products/headphones.png', revenue: '$248,700', unitsSold: '3122' },
+  { order: 'Smart Fitness Watch', image: '/products/fitness-watch.png', revenue: '$184,299', unitsSold: '2061' },
+  { order: 'Mechanical Keyboard', image: '/products/keyboard.jpg', revenue: '$139,459', unitsSold: '2745' },
+  { order: 'Premium Backpack', image: '/products/backpack.jpg', revenue: '$124,800', unitsSold: '1895' },
 ];
 
 export function SalesPage() {
   const [growth, setGrowth] = useState(INITIAL_GROWTH);
   const columns: TableColumn<ProductRow>[] = [
-    { key: 'order', header: 'Order' },
+    {
+      key: 'order', header: 'Order',
+      render: (r) => (
+        <span className={styles.productCell}>
+          <Avatar size="sm" src={r.image} alt="" />
+          <span className={styles.productName}>{r.order}</span>
+        </span>
+      ),
+    },
     { key: 'revenue', header: 'Revenue', align: 'right' },
     { key: 'unitsSold', header: 'Unit sold', align: 'right' },
   ];
@@ -189,7 +197,7 @@ export function SalesPage() {
           </div>
         </Panel>
 
-        <Panel title="Top products" description="Best-selling products this month.">
+        <Panel title="Top performing products" description="Products generating the highest revenue.">
           <Table<ProductRow> columns={columns} rows={products} rowKey={(r) => r.order} />
         </Panel>
 
