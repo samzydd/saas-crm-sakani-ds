@@ -107,6 +107,7 @@ export function CustomersPage() {
         <Panel
           title="Customer growth"
           description="Monitor customer growth over time."
+          className={styles.panelCanvas}
           actions={<>
             <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>6.4% up this month</Badge>
             <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
@@ -122,6 +123,7 @@ export function CustomersPage() {
         <Panel
           title="Customer segments"
           description="Distribution of customer types."
+          className={styles.panelCanvas}
           actions={<>
             <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>1.4% this month</Badge>
             <PeriodDropdown
