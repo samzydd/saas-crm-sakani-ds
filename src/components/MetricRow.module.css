@@ -1,16 +1,33 @@
 .row {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  min-height: 28px;
   padding: 5px 0;
 }
 
+/* Figma "Progress": a bg/subtle, radius-sm fill behind the icon+label,
+ * sized to the row's value relative to the largest in its group -- a
+ * background layer, not a container, since labels can run past its edge. */
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  min-width: 28px;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-sm, 6px);
+}
+
 .left {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
+  padding: 0 12px;
 }
 
 .icon {

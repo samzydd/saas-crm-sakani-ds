@@ -62,6 +62,16 @@ const refundReasons = [
   { label: 'Other', value: '12%' },
 ];
 
+/** Figma "List Item" -> "Progress": a bg/subtle fill sized to each row's
+ * value relative to the largest in its group, capped so the biggest bar
+ * doesn't crowd the value text (matches Figma's ~60% max-width ratio). */
+const MAX_FILL_PERCENT = 60;
+function withFillPercent<T extends { value: string }>(rows: T[]): (T & { fillPercent: number })[] {
+  const nums = rows.map((r) => parseFloat(r.value.replace(/[^0-9.]/g, '')));
+  const max = Math.max(...nums);
+  return rows.map((r, i) => ({ ...r, fillPercent: (nums[i] / max) * MAX_FILL_PERCENT }));
+}
+
 interface ProductRow {
   order: string;
   revenue: string;
@@ -136,8 +146,8 @@ export function SalesPage() {
       <div className={styles.threeCol}>
         <Panel title="Conversion funnel" description="From first visit to completed purchase.">
           <div className={styles.metricPanel}>
-            {funnel.map((f) => (
-              <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} />
+            {withFillPercent(funnel).map((f) => (
+              <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
           </div>
           <Badge variant="accent" emphasis="subtle">4.9% overall conversion</Badge>
@@ -158,8 +168,8 @@ export function SalesPage() {
 
         <Panel title="Top countries" description="Revenue by customer location.">
           <div className={styles.metricPanel}>
-            {countries.map((c) => (
-              <MetricRow key={c.label} icon={<Flag size={14} strokeWidth={1.5} />} label={c.label} value={c.value} />
+            {withFillPercent(countries).map((c) => (
+              <MetricRow key={c.label} icon={<Flag size={14} strokeWidth={1.5} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
             ))}
           </div>
         </Panel>
@@ -199,8 +209,8 @@ export function SalesPage() {
             </div>
           </div>
           <div className={styles.metricPanel}>
-            {refundReasons.map((r) => (
-              <MetricRow key={r.label} label={r.label} value={r.value} />
+            {withFillPercent(refundReasons).map((r) => (
+              <MetricRow key={r.label} label={r.label} value={r.value} fillPercent={r.fillPercent} />
             ))}
           </div>
         </Panel>
