@@ -126,7 +126,7 @@ export function DashboardPage() {
       <div className={styles.threeCol}>
         <Panel
           title="Revenue trend"
-          description="Track monthly revenue growth and identify sales trends."
+          description={'Track monthly revenue growth and identify\nsales trends.'}
           className={styles.panelCanvas}
           actions={<>
             <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
