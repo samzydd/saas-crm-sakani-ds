@@ -104,7 +104,7 @@ export function SalesPage() {
         <StatCard title="Discounts" value="$68,950" delta="4.1%" trend="up" description="vs last month" />
       </div>
 
-      <div className={styles.chartsRow2}>
+      <div className={`${styles.chartsRow2} ${styles['chartsRow2--fixed']}`}>
         <Panel
           title="Acquisition vs retention"
           description="Track visitor acquisition and retention trends over time."
