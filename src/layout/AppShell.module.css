@@ -26,8 +26,35 @@
   gap: 2px;
 }
 
+/* Sidebar's group labels/promo card used to be conditionally unmounted on
+   collapse -- an instant pop that fought the sidebar's own smooth width
+   transition. Kept mounted and collapsed via max-height/opacity instead, so
+   everything animates together. */
+.navGroupLabelWrap {
+  max-height: 26px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height var(--transition-base), opacity var(--transition-fast);
+}
+
+.navGroupLabelWrap--collapsed {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height var(--transition-base), opacity var(--transition-fast) 0s;
+}
+
 .promoWrap {
   padding: 0;
+  max-height: 230px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height var(--transition-base), opacity var(--transition-fast);
+}
+
+.promoWrap--collapsed {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height var(--transition-base), opacity var(--transition-fast) 0s;
 }
 
 .main {

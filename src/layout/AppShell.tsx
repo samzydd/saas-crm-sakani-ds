@@ -64,7 +64,9 @@ export function AppShell() {
         <div className={[styles.navScroll, collapsed ? styles['navScroll--collapsed'] : ''].filter(Boolean).join(' ')}>
           {NAV.map((group) => (
             <div key={group.label} className={styles.navGroup}>
-              {!collapsed && <SidebarGroupLabel>{group.label}</SidebarGroupLabel>}
+              <div className={[styles.navGroupLabelWrap, collapsed ? styles['navGroupLabelWrap--collapsed'] : ''].filter(Boolean).join(' ')}>
+                <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              </div>
               {group.items.map((item) => {
                 const navItem = (
                   <SidebarItem
@@ -87,15 +89,13 @@ export function AppShell() {
             </div>
           ))}
         </div>
-        {!collapsed && (
-          <div className={styles.promoWrap}>
-            <SidebarPromo
-              title="Upgrade to Pro"
-              description="Unlock advanced reporting and unlimited seats."
-              ctaLabel="Upgrade now"
-            />
-          </div>
-        )}
+        <div className={[styles.promoWrap, collapsed ? styles['promoWrap--collapsed'] : ''].filter(Boolean).join(' ')}>
+          <SidebarPromo
+            title="Upgrade to Pro"
+            description="Unlock advanced reporting and unlimited seats."
+            ctaLabel="Upgrade now"
+          />
+        </div>
       </Sidebar>
 
       <div className={styles.main}>
