@@ -61,6 +61,7 @@
  * retention / Channel breakdown pair only. */
 .chartsRow2--fixed {
   height: 340px;
+  gap: 16px;
 }
 
 /* Customers' Customer growth / Customer segments pair is an asymmetric

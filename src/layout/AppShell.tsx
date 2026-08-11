@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutPanelTop, ChartColumnBig, CircleUser, Boxes, Megaphone, ChartPie, Settings2,
-  UsersRound, PlugZap, Settings, PanelRightOpen,
+  UsersRound, PlugZap, Settings, PanelRightClose,
 } from 'lucide-react';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
@@ -59,7 +59,7 @@ export function AppShell() {
           logo="S"
           collapsed={collapsed}
           onToggle={() => setCollapsed((c) => !c)}
-          toggleIcon={PanelRightOpen}
+          toggleIcon={PanelRightClose}
         />
         <div className={[styles.navScroll, collapsed ? styles['navScroll--collapsed'] : ''].filter(Boolean).join(' ')}>
           {NAV.map((group) => (
