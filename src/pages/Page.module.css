@@ -167,12 +167,18 @@
 /* Sales' Device breakdown: donut on top, legend wrapped/centered below it
    (Figma), unlike the side-by-side [donut, legend] pair .chartLegendRow
    gives every other donut panel. */
+/* Figma: flex-1 + justify-content:center + 12px vertical padding, so the
+   [donut, legend] group centers within whatever height the panel actually
+   has, instead of sitting top-aligned with all the slack stranded below it. */
 .chartColumnCentered {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   width: 100%;
+  padding: 12px 0;
 }
 
 .legendWrapRow {
