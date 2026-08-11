@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2, Upload } from 'lucide-react';
+import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2, Upload, TrendingUp } from 'lucide-react';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
@@ -113,7 +113,7 @@ export function SalesPage() {
             options={['7 days', '30 days', '90 days']}
             formatLabel={(v) => `Last ${v}`}
           />
-          <Button variant="outline" leftIcon={<Upload size={14} strokeWidth={1.5} />}>Export data</Button>
+          <Button variant="outline" size="sm" leftIcon={<Upload size={14} strokeWidth={1.5} />}>Export data</Button>
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export function SalesPage() {
           description="Track visitor acquisition and retention trends over time."
           className={styles.panelCanvas}
           actions={<>
-            <Badge variant="success" emphasis="subtle">This month</Badge>
+            <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>6.4% up this month</Badge>
             <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
@@ -147,7 +147,7 @@ export function SalesPage() {
           description="Where this month's revenue is coming from."
           className={styles.panelCanvas}
           actions={<>
-            <Badge variant="neutral" emphasis="subtle">This month</Badge>
+            <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>1.4% this month</Badge>
             <Button variant="outline" size="sm">View report</Button>
           </>}
         >
