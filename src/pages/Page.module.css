@@ -229,23 +229,4 @@
   height: 176px !important;
 }
 
-/* Sales' Acquisition vs retention / Channel breakdown panels are capped to
-   340px (.chartsRow2--fixed); their charts' default size="md" heights
-   (240px / 220px) overflow that budget once header+actions+legend rows are
-   accounted for. Shrunk to the exact heights that fit within the panel's
-   20px padding, scoped to these two instances only. */
-.chartH174 :global(.recharts-responsive-container) {
-  height: 174px !important;
-}
-
-.chartH205 :global(.recharts-responsive-container) {
-  height: 205px !important;
-}
-
-/* DonutChart also sets an inline height (for its center-value overlay) on its
-   own wrapper div, one level up from .recharts-responsive-container -- the
-   above override alone isn't enough for donuts, unlike Line/BarChart. */
-.chartH205 > div {
-  height: 205px !important;
-}
 

@@ -114,9 +114,7 @@ export function SalesPage() {
             <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
-          <div className={styles.chartH174}>
-            <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" />
-          </div>
+          <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" height={174} />
           <div className={styles.legendRowInline}>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
             <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
@@ -133,8 +131,8 @@ export function SalesPage() {
           </>}
         >
           <div className={styles.chartLegendRow}>
-            <div className={`${styles.chartFixed} ${styles.chartH205}`} style={{ width: 200 }}>
-              <DonutChart data={channels} size="md" centerValue="$2.44M" centerCaption="of revenue" />
+            <div className={styles.chartFixed} style={{ width: 200 }}>
+              <DonutChart data={channels} size="md" height={205} centerValue="$2.44M" centerCaption="of revenue" />
             </div>
             <div className={styles.legendList}>
               {channels.map((c, i) => (
