@@ -79,6 +79,13 @@
   height: 334px;
 }
 
+/* Customers' Customer acquisition / Customer Satisfaction / Top Customers
+   row is 312px tall in Figma, not .threeCol's default 334px. */
+.threeCol--customers {
+  gap: 16px;
+  height: 312px;
+}
+
 .spanTwo {
   grid-column: span 2;
 }

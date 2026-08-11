@@ -6,6 +6,7 @@ import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
 import { randomGrowth } from '../lib/randomChartData';
+import { withFillPercent } from '../lib/withFillPercent';
 import styles from './Page.module.css';
 
 const INITIAL_GROWTH = [
@@ -144,11 +145,11 @@ export function CustomersPage() {
         </Panel>
       </div>
 
-      <div className={styles.threeCol}>
+      <div className={`${styles.threeCol} ${styles['threeCol--customers']}`}>
         <Panel title="Customer acquisition" description="Customer progression from visit to purchase.">
           <div className={styles.metricPanel}>
-            {funnel.map((f) => (
-              <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} />
+            {withFillPercent(funnel).map((f) => (
+              <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
           </div>
           <Badge variant="info" emphasis="subtle" className={`${styles.hugContent} ${styles.conversionBadge}`}>4.8% Conversion rate</Badge>

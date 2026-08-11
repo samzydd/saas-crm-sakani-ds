@@ -6,6 +6,7 @@ import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
 import { randomGrowth } from '../lib/randomChartData';
+import { withFillPercent } from '../lib/withFillPercent';
 import styles from './Page.module.css';
 
 const INITIAL_GROWTH = [
@@ -61,16 +62,6 @@ const refundReasons = [
   { label: 'Not as described', value: '14%' },
   { label: 'Other', value: '12%' },
 ];
-
-/** Figma "List Item" -> "Progress": a bg/subtle fill sized to each row's
- * value relative to the largest in its group, capped so the biggest bar
- * doesn't crowd the value text (matches Figma's ~60% max-width ratio). */
-const MAX_FILL_PERCENT = 60;
-function withFillPercent<T extends { value: string }>(rows: T[]): (T & { fillPercent: number })[] {
-  const nums = rows.map((r) => parseFloat(r.value.replace(/[^0-9.]/g, '')));
-  const max = Math.max(...nums);
-  return rows.map((r, i) => ({ ...r, fillPercent: (nums[i] / max) * MAX_FILL_PERCENT }));
-}
 
 interface ProductRow {
   order: string;
