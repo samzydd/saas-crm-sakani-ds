@@ -4,6 +4,13 @@
   align-self: flex-start;
 }
 
+/* Figma's funnel-conversion badge uses label/md (14px/20px), not Badge's
+ * default 12px label text. */
+.conversionBadge {
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .kpiRow {
   display: flex;
   gap: 12px;
@@ -78,23 +85,26 @@
   width: 100%;
 }
 
+/* Centers the [donut, legend] pair as a group -- no artificial spacer
+   column, which fought legend content wider than an equal-share track and
+   caused it to overflow the panel in narrower layouts. */
 .chartLegendRow {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 16px;
   width: 100%;
 }
 
 /* DonutChart's own CSS is width:100%, which fights flex's auto-basis sizing
-   and collapses siblings to 0 — give it a fixed basis instead so the legend
-   gets its fair share of the row. */
+   and collapses siblings to 0 — give it a fixed basis instead. */
 .chartFixed {
   flex: 0 0 auto;
 }
 
 .chartLegendRow .legendList {
-  flex: 1 1 0;
-  min-width: 0;
+  flex: 0 0 auto;
+  width: fit-content;
 }
 
 .activityList {

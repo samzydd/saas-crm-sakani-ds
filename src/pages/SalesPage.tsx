@@ -150,7 +150,7 @@ export function SalesPage() {
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
           </div>
-          <Badge variant="accent" emphasis="subtle" className={styles.hugContent}>4.9% overall conversion</Badge>
+          <Badge variant="info" emphasis="subtle" className={`${styles.hugContent} ${styles.conversionBadge}`}>4.9% overall conversion</Badge>
         </Panel>
 
         <Panel title="Device breakdown" description="Sessions split across device types.">
