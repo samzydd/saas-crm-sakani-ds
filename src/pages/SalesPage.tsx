@@ -27,8 +27,8 @@ const channels = [
 
 const devices = [
   { label: 'Desktop', value: 54 },
-  { label: 'Mobile', value: 34 },
-  { label: 'Tablet', value: 12 },
+  { label: 'Mobile', value: 39 },
+  { label: 'Tablet', value: 7 },
 ];
 
 const payments = [
@@ -155,9 +155,9 @@ export function SalesPage() {
         </Panel>
       </div>
 
-      <div className={styles.threeCol}>
+      <div className={`${styles.threeCol} ${styles['threeCol--sales']}`}>
         <Panel title="Conversion funnel" description="From first visit to completed purchase.">
-          <div className={styles.metricPanel}>
+          <div className={`${styles.metricPanel} ${styles['metricPanel--gap6']}`}>
             {withFillPercent(funnel).map((f) => (
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
@@ -166,11 +166,11 @@ export function SalesPage() {
         </Panel>
 
         <Panel title="Device breakdown" description="Sessions split across device types.">
-          <div className={styles.chartLegendRow}>
-            <div className={styles.chartFixed} style={{ width: 160 }}>
-              <DonutChart data={devices} size="sm" centerValue="100%" centerCaption="total" />
+          <div className={styles.chartColumnCentered}>
+            <div className={styles.chartFixed} style={{ width: 140 }}>
+              <DonutChart data={devices} size="sm" height={140} centerValue="100%" centerCaption="total" />
             </div>
-            <div className={styles.legendList}>
+            <div className={styles.legendWrapRow}>
               {devices.map((d, i) => (
                 <LegendRow key={d.label} colorIndex={i + 1} label={d.label} value={`${d.value}%`} />
               ))}
@@ -179,7 +179,7 @@ export function SalesPage() {
         </Panel>
 
         <Panel title="Top countries" description="Revenue by customer location.">
-          <div className={styles.metricPanel}>
+          <div className={`${styles.metricPanel} ${styles['metricPanel--gap6']}`}>
             {withFillPercent(countries).map((c) => (
               <MetricRow key={c.label} icon={<img src={c.flag} alt="" width={14} height={14} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
             ))}
@@ -187,7 +187,7 @@ export function SalesPage() {
         </Panel>
       </div>
 
-      <div className={styles.threeCol}>
+      <div className={`${styles.threeCol} ${styles['threeCol--sales']}`}>
         <Panel title="Payment methods" description="How customers are paying.">
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 160 }}>

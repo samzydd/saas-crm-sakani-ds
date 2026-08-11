@@ -79,6 +79,14 @@
   height: 334px;
 }
 
+/* Sales' Conversion funnel / Device breakdown / Top countries and Payment
+   methods / Top products / Refund reasons rows are 328px tall in Figma,
+   not .threeCol's default 334px. */
+.threeCol--sales {
+  gap: 16px;
+  height: 328px;
+}
+
 /* Customers' Customer acquisition / Customer Satisfaction / Top Customers
    row is 312px tall in Figma, not .threeCol's default 334px. */
 .threeCol--customers {
@@ -154,6 +162,24 @@
 .chartLegendRow .legendList {
   flex: 0 0 auto;
   width: fit-content;
+}
+
+/* Sales' Device breakdown: donut on top, legend wrapped/centered below it
+   (Figma), unlike the side-by-side [donut, legend] pair .chartLegendRow
+   gives every other donut panel. */
+.chartColumnCentered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.legendWrapRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
 
 .activityList {
@@ -238,6 +264,12 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+/* Sales' Conversion funnel / Top countries want more breathing room
+   between rows than .metricPanel's shared 4px default. */
+.metricPanel--gap6 {
+  gap: 6px;
 }
 
 .customerCell {
