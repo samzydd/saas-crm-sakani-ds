@@ -12,13 +12,9 @@
 }
 
 .label {
-  flex: 1;
-  min-width: 0;
   font-family: var(--font-sans);
   font-size: 14px;
   line-height: 18px;
   color: var(--color-fg-default);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
