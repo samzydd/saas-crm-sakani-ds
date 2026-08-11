@@ -10,12 +10,15 @@ interface MetricRowProps {
    * Item" -> "Progress": a fill bar sized to the metric, icon+label inside
    * it, value text outside to the right). Omit for no fill. */
   fillPercent?: number;
+  /** Figma "Top customers": value text uses fg/subtle instead of the
+   * default fg/default, unlike every other MetricRow usage. */
+  valueMuted?: boolean;
   className?: string;
 }
 
 /** Local list row for label + right-aligned value (Figma "List Item" ->
  * "Progress" pattern used for funnels, top-N lists, and simple breakdowns). */
-export function MetricRow({ icon, label, value, fillPercent, className }: MetricRowProps) {
+export function MetricRow({ icon, label, value, fillPercent, valueMuted, className }: MetricRowProps) {
   return (
     <div className={[styles.row, className ?? ''].filter(Boolean).join(' ')}>
       {fillPercent != null && <span className={styles.fill} style={{ width: `${fillPercent}%` }} aria-hidden="true" />}
@@ -23,7 +26,7 @@ export function MetricRow({ icon, label, value, fillPercent, className }: Metric
         {icon && <span className={styles.icon}>{icon}</span>}
         <span className={styles.label}>{label}</span>
       </span>
-      <span className={styles.value}>{value}</span>
+      <span className={[styles.value, valueMuted ? styles['value--muted'] : ''].filter(Boolean).join(' ')}>{value}</span>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Search, Eye, ShoppingCart, CheckCircle2, Star, Gauge, MessageCircle } from 'lucide-react';
-import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
+import { Search, Eye, ShoppingCart, CheckCircle2, TrendingUp, Upload } from 'lucide-react';
+import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
@@ -33,10 +33,10 @@ const funnel = [
 ];
 
 const satisfaction = [
-  { icon: Star, label: 'Average rating', value: '4.8' },
-  { icon: Gauge, label: 'NPS score', value: '71' },
-  { icon: MessageCircle, label: 'Response rate', value: '18%' },
-  { icon: Star, label: 'Reviews', value: '14%' },
+  { label: 'Average rating', value: '4.8' },
+  { label: 'NPS score', value: '71' },
+  { label: 'Response rate', value: '18%' },
+  { label: 'Reviews', value: '14%' },
 ];
 
 const topCustomers = [
@@ -46,52 +46,54 @@ const topCustomers = [
   { label: 'Liam Carter', value: '$14,820' },
 ];
 
-interface Customer {
-  name: string;
-  email: string;
-  segment: 'New' | 'Returning' | 'VIP' | 'At risk';
-  lifetimeValue: string;
-  lastOrder: string;
+interface RecentCustomer {
+  order: string;
+  customer: string;
+  spend: string;
+  latestPurchase: string;
+  status: string;
 }
 
-const SEGMENT_VARIANT = {
-  New: 'info', Returning: 'accent', VIP: 'success', 'At risk': 'warning',
-} as const;
-
-const customers: Customer[] = [
-  { name: 'Sarah Wilson', email: 'sarah.wilson@example.com', segment: 'VIP', lifetimeValue: '$18,450', lastOrder: '2 days ago' },
-  { name: 'Noah Smith', email: 'noah.smith@example.com', segment: 'Returning', lifetimeValue: '$16,980', lastOrder: '5 days ago' },
-  { name: 'Emma Davis', email: 'emma.davis@example.com', segment: 'VIP', lifetimeValue: '$15,630', lastOrder: '1 day ago' },
-  { name: 'Liam Carter', email: 'liam.carter@example.com', segment: 'Returning', lifetimeValue: '$14,820', lastOrder: '1 week ago' },
-  { name: 'Olivia Martin', email: 'olivia.martin@example.com', segment: 'New', lifetimeValue: '$2,140', lastOrder: '3 days ago' },
-  { name: 'James Anderson', email: 'james.anderson@example.com', segment: 'At risk', lifetimeValue: '$4,920', lastOrder: '2 months ago' },
+const recentCustomers: RecentCustomer[] = [
+  { order: 'ORD-2481', customer: 'Olivia Carter', spend: '$482', latestPurchase: 'Visa', status: 'Active' },
+  { order: 'ORD-2482', customer: 'Noah Kim', spend: '$124', latestPurchase: 'Paypal', status: 'Active' },
+  { order: 'ORD-2483', customer: 'Sophia Lee', spend: '$318', latestPurchase: 'Mastercard', status: 'Active' },
+  { order: 'ORD-2484', customer: 'Ethan Walker', spend: '$1,248', latestPurchase: 'Apple Pay', status: 'Active' },
+  { order: 'ORD-2485', customer: 'Amelia Brown', spend: '$86', latestPurchase: 'Visa', status: 'Active' },
+  { order: 'ORD-2486', customer: 'Lucas Wilson', spend: '$212', latestPurchase: 'Paypal', status: 'Active' },
 ];
 
 export function CustomersPage() {
   const [growth, setGrowth] = useState(INITIAL_GROWTH);
-  const columns: TableColumn<Customer>[] = [
+  const columns: TableColumn<RecentCustomer>[] = [
+    { key: 'order', header: 'Order' },
+    { key: 'customer', header: 'Customer' },
+    { key: 'spend', header: 'Spend', align: 'right' },
     {
-      key: 'name', header: 'Customer',
-      render: (r) => (
-        <span className={styles.customerCell}>
-          <Avatar size="sm" initials={r.name.split(' ').map((n) => n[0]).join('')} />
-          <span>
-            <div className={styles.customerName}>{r.name}</div>
-            <div className={styles.customerEmail}>{r.email}</div>
-          </span>
-        </span>
-      ),
+      key: 'latestPurchase', header: 'Latest purchase', align: 'center',
+      render: (r) => <Badge variant="neutral" emphasis="subtle">{r.latestPurchase}</Badge>,
     },
     {
-      key: 'segment', header: 'Segment',
-      render: (r) => <Badge variant={SEGMENT_VARIANT[r.segment]} emphasis="subtle">{r.segment}</Badge>,
+      key: 'status', header: 'Status', align: 'center',
+      render: (r) => <Badge variant="neutral" emphasis="subtle">{r.status}</Badge>,
     },
-    { key: 'lifetimeValue', header: 'Lifetime value', align: 'right' },
-    { key: 'lastOrder', header: 'Last order' },
   ];
 
   return (
     <>
+      <div className={styles.pageHeaderRow}>
+        <p className={styles.pageHeaderDesc}>Understand customer growth, engagement, and lifetime value.</p>
+        <div className={styles.pageHeaderActions}>
+          <PeriodDropdown
+            variant="outline"
+            defaultValue="30 days"
+            options={['7 days', '30 days', '90 days']}
+            formatLabel={(v) => `Last ${v}`}
+          />
+          <Button variant="outline" size="sm" leftIcon={<Upload size={14} strokeWidth={1.5} />}>Export data</Button>
+        </div>
+      </div>
+
       <div className={styles.kpiRow}>
         <StatCard title="Total customers" value="43,150" delta="8.3%" trend="up" description="vs last month" />
         <StatCard title="New customers" value="1,280" delta="12.3%" trend="up" description="vs last month" />
@@ -100,12 +102,12 @@ export function CustomersPage() {
         <StatCard title="Churn rate" value="2.3%" delta="0.7%" trend="up" description="vs last month" />
       </div>
 
-      <div className={styles.chartsRow2}>
+      <div className={`${styles.chartsRow2} ${styles['chartsRow2--customers']}`}>
         <Panel
           title="Customer growth"
           description="Monitor customer growth over time."
           actions={<>
-            <Badge variant="success" emphasis="subtle">This month</Badge>
+            <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>6.4% up this month</Badge>
             <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
           </>}
         >
@@ -118,15 +120,20 @@ export function CustomersPage() {
 
         <Panel
           title="Customer segments"
-          description="Breakdown of customers by lifecycle stage."
+          description="Distribution of customer types."
           actions={<>
-            <Badge variant="neutral" emphasis="subtle">This month</Badge>
-            <Button variant="outline" size="sm">View report</Button>
+            <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>1.4% this month</Badge>
+            <PeriodDropdown
+              variant="outline"
+              defaultValue="This month"
+              options={['This month', 'Last month', 'This quarter', 'This year']}
+              formatLabel={(v) => v}
+            />
           </>}
         >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 200 }}>
-              <DonutChart data={segments} size="md" />
+              <DonutChart data={segments} size="md" centerValue="400.1K" centerCaption="total customers" />
             </div>
             <div className={styles.legendList}>
               {segments.map((s, i) => (
@@ -138,39 +145,34 @@ export function CustomersPage() {
       </div>
 
       <div className={styles.threeCol}>
-        <Panel title="Acquisition funnel" description="From first touch to completed purchase.">
+        <Panel title="Customer acquisition" description="Customer progression from visit to purchase.">
           <div className={styles.metricPanel}>
             {funnel.map((f) => (
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} />
             ))}
           </div>
-          <Badge variant="info" emphasis="subtle" className={`${styles.hugContent} ${styles.conversionBadge}`}>4.9% overall conversion</Badge>
+          <Badge variant="info" emphasis="subtle" className={`${styles.hugContent} ${styles.conversionBadge}`}>4.8% Conversion rate</Badge>
         </Panel>
 
-        <Panel title="Customer satisfaction" description="Feedback and support performance.">
+        <Panel title="Customer Satisfaction" description="Customer feedback and loyalty metrics.">
           <div className={styles.metricPanel}>
             {satisfaction.map((s) => (
-              <MetricRow key={s.label} icon={<s.icon size={16} strokeWidth={1.5} />} label={s.label} value={s.value} />
+              <MetricRow key={s.label} label={s.label} value={s.value} />
             ))}
           </div>
         </Panel>
 
-        <Panel title="Top customers" description="Highest lifetime spend this period.">
+        <Panel title="Top Customers" description="Highest-value customers by total spend.">
           <div className={styles.metricPanel}>
             {topCustomers.map((c) => (
-              <MetricRow key={c.label} label={c.label} value={c.value} />
+              <MetricRow key={c.label} label={c.label} value={c.value} valueMuted />
             ))}
           </div>
         </Panel>
       </div>
 
-      <Panel
-        title="All customers"
-        description="Complete customer directory."
-        actions={<Button variant="outline" size="sm">View all</Button>}
-        actionsInline
-      >
-        <Table<Customer> columns={columns} rows={customers} rowKey={(r) => r.email} />
+      <Panel title="Recent customers" description="Recently active customer accounts">
+        <Table<RecentCustomer> columns={columns} rows={recentCustomers} rowKey={(r) => r.order} />
       </Panel>
     </>
   );

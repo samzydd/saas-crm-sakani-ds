@@ -56,3 +56,7 @@
   flex-shrink: 0;
   padding-left: 12px;
 }
+
+.value--muted {
+  color: var(--color-fg-subtle);
+}

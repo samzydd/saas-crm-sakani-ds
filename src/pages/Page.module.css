@@ -63,6 +63,14 @@
   height: 340px;
 }
 
+/* Customers' Customer growth / Customer segments pair is an asymmetric
+   684:452 split in Figma (~60/40), not the equal halves .chartsRow2
+   defaults to -- and its gap is 12px there, not 20px. */
+.chartsRow2--customers {
+  grid-template-columns: 684fr 452fr;
+  gap: 12px;
+}
+
 .threeCol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
