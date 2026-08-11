@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2 } from 'lucide-react';
+import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2, Upload } from 'lucide-react';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
@@ -104,6 +104,19 @@ export function SalesPage() {
 
   return (
     <>
+      <div className={styles.pageHeaderRow}>
+        <p className={styles.pageHeaderDesc}>Track revenue performance, identify trends and optimize conversions.</p>
+        <div className={styles.pageHeaderActions}>
+          <PeriodDropdown
+            variant="outline"
+            defaultValue="30 days"
+            options={['7 days', '30 days', '90 days']}
+            formatLabel={(v) => `Last ${v}`}
+          />
+          <Button variant="outline" leftIcon={<Upload size={14} strokeWidth={1.5} />}>Export data</Button>
+        </div>
+      </div>
+
       <div className={styles.kpiRow}>
         <StatCard title="Gross Sales" value="$1,472,310" delta="10.2%" trend="up" description="vs last month" />
         <StatCard title="Net Revenue" value="$1,248,950" delta="14.8%" trend="up" description="vs last month" />
@@ -198,7 +211,7 @@ export function SalesPage() {
         </Panel>
 
         <Panel title="Top performing products" description="Products generating the highest revenue.">
-          <Table<ProductRow> columns={columns} rows={products} rowKey={(r) => r.order} />
+          <Table<ProductRow> columns={columns} rows={products} rowKey={(r) => r.order} bordered={false} />
         </Panel>
 
         <Panel title="Refund reasons" description="Why customers are requesting refunds.">

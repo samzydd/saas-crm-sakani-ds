@@ -11,6 +11,33 @@
   line-height: 20px;
 }
 
+/* Figma "Page Header" (description + actions only, no title -- the page
+ * title itself lives in the app's TopBar, not repeated here). */
+.pageHeaderRow {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.pageHeaderDesc {
+  flex: 1 1 0;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--color-fg-subtle);
+}
+
+.pageHeaderActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .kpiRow {
   display: flex;
   gap: 12px;

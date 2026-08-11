@@ -11,13 +11,16 @@ interface PeriodDropdownProps {
   /** Formats the trigger/menu-item label from a raw option value. Defaults to "Last {value}". */
   formatLabel?: (value: string) => string;
   onChange?: (value: string) => void;
+  /** Trigger button style — ghost (default, used inside chart panels) or
+   * outline (Figma's page-header filter button, e.g. Sales' "Last 30 days"). */
+  variant?: 'ghost' | 'outline';
 }
 
 /** Chart-range picker — ghost/sm button that opens a Menu. Defaults to the
  * "Last N months" set, but accepts custom options/label formatting (e.g.
  * "This month" style pickers). */
 export function PeriodDropdown({
-  defaultValue = '6 months', options = DEFAULT_OPTIONS, formatLabel = (v) => `Last ${v}`, onChange,
+  defaultValue = '6 months', options = DEFAULT_OPTIONS, formatLabel = (v) => `Last ${v}`, onChange, variant = 'ghost',
 }: PeriodDropdownProps) {
   const [value, setValue] = useState(defaultValue);
   const [open, setOpen] = useState(false);
@@ -46,7 +49,7 @@ export function PeriodDropdown({
   return (
     <div className={styles.root} ref={rootRef}>
       <Button
-        variant="ghost"
+        variant={variant}
         size="sm"
         className={styles.trigger}
         rightIcon={open ? <ChevronUp size={16} strokeWidth={1.5} /> : <ChevronDown size={16} strokeWidth={1.5} />}
