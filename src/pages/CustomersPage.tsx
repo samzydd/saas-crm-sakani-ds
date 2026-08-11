@@ -98,7 +98,7 @@ export function CustomersPage() {
       <div className={styles.kpiRow}>
         <StatCard title="Total customers" value="43,150" delta="8.3%" trend="up" description="vs last month" />
         <StatCard title="New customers" value="1,280" delta="12.3%" trend="up" description="vs last month" />
-        <StatCard title="Returning customers" value="68.2%" delta="3.8%" trend="flat" description="vs last month" />
+        <StatCard title="Returning customers" value="68.2%" delta="3.8%" trend="down" badgeVariant="warning" description="vs last month" />
         <StatCard title="Avg lifetime value" value="$1,482" delta="4.5%" trend="up" description="vs last month" />
         <StatCard title="Churn rate" value="2.3%" delta="0.7%" trend="up" description="vs last month" />
       </div>
