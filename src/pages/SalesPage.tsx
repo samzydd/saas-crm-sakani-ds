@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2, Flag } from 'lucide-react';
+import { Eye, Package, ShoppingCart, CreditCard, CheckCircle2 } from 'lucide-react';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from 'sakani-design-system';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
@@ -46,12 +46,12 @@ const funnel = [
 ];
 
 const countries = [
-  { label: 'United States', value: '$486,500' },
-  { label: 'Canada', value: '$324,700' },
-  { label: 'England', value: '$268,400' },
-  { label: 'Portugal', value: '$89,749' },
-  { label: 'Spain', value: '$58,150' },
-  { label: 'Nigeria', value: '$23,040' },
+  { label: 'United States', value: '$486,500', flag: '/flags/us.png' },
+  { label: 'Canada', value: '$324,700', flag: '/flags/ca.png' },
+  { label: 'England', value: '$268,400', flag: '/flags/gb.png' },
+  { label: 'Portugal', value: '$89,749', flag: '/flags/pt.png' },
+  { label: 'Spain', value: '$58,150', flag: '/flags/es.png' },
+  { label: 'Nigeria', value: '$23,040', flag: '/flags/ng.png' },
 ];
 
 const refundReasons = [
@@ -150,7 +150,7 @@ export function SalesPage() {
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
           </div>
-          <Badge variant="accent" emphasis="subtle">4.9% overall conversion</Badge>
+          <Badge variant="accent" emphasis="subtle" className={styles.hugContent}>4.9% overall conversion</Badge>
         </Panel>
 
         <Panel title="Device breakdown" description="Sessions split across device types.">
@@ -169,7 +169,7 @@ export function SalesPage() {
         <Panel title="Top countries" description="Revenue by customer location.">
           <div className={styles.metricPanel}>
             {withFillPercent(countries).map((c) => (
-              <MetricRow key={c.label} icon={<Flag size={14} strokeWidth={1.5} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
+              <MetricRow key={c.label} icon={<img src={c.flag} alt="" width={14} height={14} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
             ))}
           </div>
         </Panel>

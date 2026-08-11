@@ -144,7 +144,7 @@ export function CustomersPage() {
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} />
             ))}
           </div>
-          <Badge variant="accent" emphasis="subtle">4.9% overall conversion</Badge>
+          <Badge variant="accent" emphasis="subtle" className={styles.hugContent}>4.9% overall conversion</Badge>
         </Panel>
 
         <Panel title="Customer satisfaction" description="Feedback and support performance.">

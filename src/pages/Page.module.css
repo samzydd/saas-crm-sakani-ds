@@ -1,3 +1,9 @@
+/* Panel is a column flex with default align-items:stretch, so any direct
+ * child (e.g. a Badge) stretches full width unless opted out. */
+.hugContent {
+  align-self: flex-start;
+}
+
 .kpiRow {
   display: flex;
   gap: 12px;
