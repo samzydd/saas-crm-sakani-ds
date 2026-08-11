@@ -194,11 +194,13 @@ export function DashboardPage() {
         actionsInline
         className={styles.spanTwo}
       >
-        <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
+        <div className={styles.panelScroll}>
+          <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
+        </div>
       </Panel>
 
       <Panel title="Recent activity" description="Latest system and team activity." actionsInline>
-        <div className={styles.activityList}>
+        <div className={`${styles.activityList} ${styles.panelScroll}`}>
           {activity.map((a, i) => {
             const Icon = a.icon;
             return (

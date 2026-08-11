@@ -104,6 +104,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   align-items: stretch;
+  height: 412px;
+}
+
+/* Recent orders/Recent activity are fixed at 412px -- their own content
+   (table rows, activity list) scrolls internally instead of overflowing or
+   being clipped by Panel's own overflow:hidden. */
+.panelScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .legendRowInline {
