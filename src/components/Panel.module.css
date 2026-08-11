@@ -60,14 +60,10 @@
   color: var(--color-fg-subtle);
   /* pre-line only takes effect where a description string actually
    * contains a literal newline (e.g. Revenue trend's forced break after
-   * "identify") -- harmless no-op for every other panel's description. */
+   * "identify", kept unconditional so it stays two lines like Customer
+   * growth/Sales channel's naturally-wrapping descriptions) -- harmless
+   * no-op for every other panel's description. */
   white-space: pre-line;
-}
-
-@media (min-width: 1441px) {
-  .description {
-    white-space: normal;
-  }
 }
 
 .actions {
