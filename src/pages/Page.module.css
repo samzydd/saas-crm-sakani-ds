@@ -263,12 +263,6 @@
 .metricPanel {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-
-/* Sales' Conversion funnel / Top countries want more breathing room
-   between rows than .metricPanel's shared 4px default. */
-.metricPanel--gap6 {
   gap: 6px;
 }
 

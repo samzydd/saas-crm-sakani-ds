@@ -157,7 +157,7 @@ export function SalesPage() {
 
       <div className={`${styles.threeCol} ${styles['threeCol--sales']}`}>
         <Panel title="Conversion funnel" description="From first visit to completed purchase.">
-          <div className={`${styles.metricPanel} ${styles['metricPanel--gap6']}`}>
+          <div className={styles.metricPanel}>
             {withFillPercent(funnel).map((f) => (
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
@@ -179,7 +179,7 @@ export function SalesPage() {
         </Panel>
 
         <Panel title="Top countries" description="Revenue by customer location.">
-          <div className={`${styles.metricPanel} ${styles['metricPanel--gap6']}`}>
+          <div className={styles.metricPanel}>
             {withFillPercent(countries).map((c) => (
               <MetricRow key={c.label} icon={<img src={c.flag} alt="" width={14} height={14} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
             ))}
