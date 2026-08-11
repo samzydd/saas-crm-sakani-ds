@@ -98,6 +98,7 @@ export function SalesPage() {
         <Panel
           title="Acquisition vs retention"
           description="Track visitor acquisition and retention trends over time."
+          className={styles.panelCanvas}
           actions={<>
             <Badge variant="success" emphasis="subtle">This month</Badge>
             <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
@@ -113,6 +114,7 @@ export function SalesPage() {
         <Panel
           title="Channel breakdown"
           description="Where this month's revenue is coming from."
+          className={styles.panelCanvas}
           actions={<>
             <Badge variant="neutral" emphasis="subtle">This month</Badge>
             <Button variant="outline" size="sm">View report</Button>
@@ -120,7 +122,7 @@ export function SalesPage() {
         >
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 200 }}>
-              <DonutChart data={channels} size="md" />
+              <DonutChart data={channels} size="md" centerValue="$2.44M" centerCaption="of revenue" />
             </div>
             <div className={styles.legendList}>
               {channels.map((c, i) => (
@@ -144,7 +146,7 @@ export function SalesPage() {
         <Panel title="Device breakdown" description="Sessions split across device types.">
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 160 }}>
-              <DonutChart data={devices} size="sm" />
+              <DonutChart data={devices} size="sm" centerValue="100%" centerCaption="total" />
             </div>
             <div className={styles.legendList}>
               {devices.map((d, i) => (
@@ -167,7 +169,7 @@ export function SalesPage() {
         <Panel title="Payment methods" description="How customers are paying.">
           <div className={styles.chartLegendRow}>
             <div className={styles.chartFixed} style={{ width: 160 }}>
-              <DonutChart data={payments} size="sm" />
+              <DonutChart data={payments} size="sm" centerValue="100%" centerCaption="method" />
             </div>
             <div className={styles.legendList}>
               {payments.map((p, i) => (
