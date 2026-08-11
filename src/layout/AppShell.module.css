@@ -52,6 +52,19 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Section content (kpiRow, chart grids, Panel, ...) must never be squished
+   by flex-shrink when total content exceeds the viewport -- the page should
+   grow and let this container's own overflow-y:auto scroll instead. Most
+   sections are protected already (grids don't shrink), but a standalone
+   Panel here is directly this flex column's child, and Panel's own
+   overflow:hidden + min-height:0 strips its automatic min-size protection,
+   so without this it gets crushed toward 0 height instead (e.g. Customers'
+   trailing "Recent customers" panel, the only bare non-grid-wrapped Panel
+   sitting straight in .page). */
+.page > * {
+  flex-shrink: 0;
+}
+
 .topbarLeft {
   display: flex;
   align-items: center;
