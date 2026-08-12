@@ -1,0 +1,19 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-fg-muted);
+  cursor: pointer;
+  transition: background-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base);
+}
+.root:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-fg-default);
+  box-shadow: var(--shadow-sm);
+}

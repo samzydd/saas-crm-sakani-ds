@@ -9,6 +9,7 @@ import {
 } from 'sakani-design-system';
 import { Fragment, useState } from 'react';
 import { SearchExpand } from '../components/SearchExpand';
+import { ThemeToggle } from '../components/ThemeToggle';
 import styles from './AppShell.module.css';
 
 const NAV = [
@@ -108,7 +109,10 @@ export function AppShell() {
               <span className={styles.topbarTitle}>{current.label}</span>
             </div>
           }
-          rightSlot={<SearchExpand />}
+          rightSlot={<>
+            <ThemeToggle />
+            <SearchExpand />
+          </>}
           showActions
           showHelp={false}
           hasUnread
