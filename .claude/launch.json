@@ -11,11 +11,7 @@
     },
     {
       "name": "sakani-storybook",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "storybook", "--", "--ci"],
-      "cwd": "/Users/macbookpro/Desktop/sakani-design-system",
-      "port": 6006,
-      "autoPort": true
+      "url": "http://localhost:6006"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { Switch } from 'sakani-design-system';
 import styles from './ThemeToggle.module.css';
 
 const STORAGE_KEY = 'theme';
@@ -10,9 +11,10 @@ function getInitialTheme(): 'light' | 'dark' {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-/** Ghost/sm icon button (32x32) that flips the app between light and dark
- * mode by toggling `.dark` on <html> — sakani-design-system's semantic
- * color tokens re-theme automatically once that class is present. */
+/** Flips the app between light and dark mode by toggling `.dark` on <html> —
+ * sakani-design-system's semantic color tokens re-theme automatically once
+ * that class is present. Uses the design system's own Switch as the control,
+ * flanked by Sun/Moon icons for clarity. */
 export function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
 
@@ -22,13 +24,14 @@ export function ThemeToggle() {
   }, [theme]);
 
   return (
-    <button
-      type="button"
-      className={styles.root}
-      onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-    >
-      {theme === 'dark' ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
-    </button>
+    <span className={styles.root}>
+      <Sun size={16} strokeWidth={1.5} className={theme === 'light' ? styles['icon--active'] : styles.icon} aria-hidden="true" />
+      <Switch
+        checked={theme === 'dark'}
+        onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      />
+      <Moon size={16} strokeWidth={1.5} className={theme === 'dark' ? styles['icon--active'] : styles.icon} aria-hidden="true" />
+    </span>
   );
 }
