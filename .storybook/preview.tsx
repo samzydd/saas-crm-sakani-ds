@@ -1,7 +1,8 @@
 import type { Preview } from '@storybook/react-vite'
 import '@fontsource-variable/geist';
-import 'sakani-design-system/tokens.css';
-import 'sakani-design-system/style.css';
+// TEMP -- see src/main.tsx for why this isn't the package import right now.
+import '../src/vendor-sakani-tokens.css';
+import '@sakaniui/react/style.css';
 import '../src/index.css';
 
 const preview: Preview = {

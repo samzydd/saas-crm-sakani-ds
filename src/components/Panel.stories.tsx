@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Badge, Button } from 'sakani-design-system';
+import { Badge, Button } from '@sakaniui/react';
 import { Panel } from './Panel';
 
 const meta = {

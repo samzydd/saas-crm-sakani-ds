@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Button, Menu, MenuItem } from 'sakani-design-system';
+import { Button, Menu, MenuItem } from '@sakaniui/react';
 import styles from './PeriodDropdown.module.css';
 
 const DEFAULT_OPTIONS = ['1 month', '2 months', '3 months', '6 months'];

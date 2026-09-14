@@ -13,31 +13,31 @@
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.9",
+    "@sakaniui/react": "^0.3.1",
     "lucide-react": "^1.25.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.9.5",
-    "recharts": "^3.9.2",
-    "sakani-design-system": "file:../../sakani-design-system"
+    "recharts": "^3.9.2"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-a11y": "^10.5.7",
+    "@storybook/addon-docs": "^10.5.7",
+    "@storybook/addon-mcp": "latest",
+    "@storybook/addon-vitest": "^10.5.7",
+    "@storybook/react-vite": "^10.5.7",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "@vitest/browser-playwright": "latest",
+    "@vitest/coverage-v8": "latest",
     "oxlint": "^1.71.0",
+    "playwright": "latest",
+    "storybook": "^10.5.7",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
-    "storybook": "^10.5.7",
-    "@storybook/react-vite": "^10.5.7",
-    "@chromatic-com/storybook": "latest",
-    "@storybook/addon-vitest": "^10.5.7",
-    "@storybook/addon-a11y": "^10.5.7",
-    "@storybook/addon-docs": "^10.5.7",
-    "@storybook/addon-mcp": "latest",
-    "vitest": "latest",
-    "playwright": "latest",
-    "@vitest/browser-playwright": "latest",
-    "@vitest/coverage-v8": "latest"
+    "vitest": "latest"
   }
 }

@@ -9,12 +9,13 @@ import { playwright } from '@vitest/browser-playwright';
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    // sakani-design-system is consumed as a local `file:` dependency (a
-    // sibling repo, not an npm-workspace member), so it resolves
-    // react/react-dom/lucide-react against its OWN node_modules rather than
-    // this app's. `dedupe` forces every import of these — including ones
-    // originating inside the linked package's dist — onto this app's single
-    // copy, avoiding duplicate-React/type errors.
+    // Historically @sakaniui/react was consumed as a local `file:` dependency
+    // (a sibling repo, not an npm-workspace member) that resolved
+    // react/react-dom/lucide-react against its OWN node_modules -- `dedupe`
+    // forced every import onto this app's single copy to avoid duplicate-
+    // React errors. Now that it's a normal npm dependency there's only ever
+    // one copy of each to begin with, so this is a no-op -- left in place
+    // since it's harmless and costs nothing to keep.
     dedupe: ['react', 'react-dom', 'lucide-react'],
   },
   test: {
