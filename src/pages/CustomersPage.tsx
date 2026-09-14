@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Eye, ShoppingCart, CheckCircle2, TrendingUp, Upload } from 'lucide-react';
-import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from 'sakani-design-system';
+import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';

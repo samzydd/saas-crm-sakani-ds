@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Package, Warehouse, FileText, Megaphone, Building2, TrendingUp, ChevronRight } from 'lucide-react';
-import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from 'sakani-design-system';
+import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
-import { Switch } from 'sakani-design-system';
+import { Switch } from '@sakaniui/react';
 import styles from './ThemeToggle.module.css';
 
 const STORAGE_KEY = 'theme';
@@ -12,7 +12,7 @@ function getInitialTheme(): 'light' | 'dark' {
 }
 
 /** Flips the app between light and dark mode by toggling `.dark` on <html> —
- * sakani-design-system's semantic color tokens re-theme automatically once
+ * @sakaniui/react's semantic color tokens re-theme automatically once
  * that class is present. Uses the design system's own Switch as the control,
  * flanked by Sun/Moon icons for clarity. */
 export function ThemeToggle() {

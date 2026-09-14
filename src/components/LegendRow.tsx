@@ -1,4 +1,4 @@
-import { Badge } from 'sakani-design-system';
+import { Badge } from '@sakaniui/react';
 import styles from './LegendRow.module.css';
 
 interface LegendRowProps {

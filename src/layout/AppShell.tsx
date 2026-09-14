@@ -6,7 +6,7 @@ import {
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
   TopBar, Avatar, Menu, MenuItem, Tooltip,
-} from 'sakani-design-system';
+} from '@sakaniui/react';
 import { Fragment, useState } from 'react';
 import { SearchExpand } from '../components/SearchExpand';
 import { ThemeToggle } from '../components/ThemeToggle';
