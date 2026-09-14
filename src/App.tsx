@@ -3,8 +3,11 @@ import { AppShell } from './layout/AppShell';
 import { DashboardPage } from './pages/DashboardPage';
 import { SalesPage } from './pages/SalesPage';
 import { CustomersPage } from './pages/CustomersPage';
+import { useEmbeddedThemeControl } from './hooks/useEmbeddedThemeControl';
 
 export default function App() {
+  useEmbeddedThemeControl();
+
   return (
     <BrowserRouter>
       <Routes>

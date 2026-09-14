@@ -12,30 +12,34 @@ import { SearchExpand } from '../components/SearchExpand';
 import { ThemeToggle } from '../components/ThemeToggle';
 import styles from './AppShell.module.css';
 
+// Only Dashboard/Sales/Customers have a real <Route> in App.tsx -- the
+// rest are shown (real sidebar groups read better with a full list) but
+// disabled, rather than navigating to a path with no matching route and
+// silently rendering a blank <Outlet />.
 const NAV = [
   {
     label: 'OVERVIEW',
     items: [
-      { to: '/', icon: LayoutPanelTop, label: 'Dashboard' },
-      { to: '/sales', icon: ChartColumnBig, label: 'Sales' },
-      { to: '/customers', icon: CircleUser, label: 'Customers' },
-      { to: '/products', icon: Boxes, label: 'Products' },
+      { to: '/', icon: LayoutPanelTop, label: 'Dashboard', page: true },
+      { to: '/sales', icon: ChartColumnBig, label: 'Sales', page: true },
+      { to: '/customers', icon: CircleUser, label: 'Customers', page: true },
+      { to: '/products', icon: Boxes, label: 'Products', page: false },
     ],
   },
   {
     label: 'GROWTH',
     items: [
-      { to: '/marketing', icon: Megaphone, label: 'Marketing' },
-      { to: '/analytics', icon: ChartPie, label: 'Analytics' },
-      { to: '/operations', icon: Settings2, label: 'Operations' },
+      { to: '/marketing', icon: Megaphone, label: 'Marketing', page: false },
+      { to: '/analytics', icon: ChartPie, label: 'Analytics', page: false },
+      { to: '/operations', icon: Settings2, label: 'Operations', page: false },
     ],
   },
   {
     label: 'ADMINISTRATION',
     items: [
-      { to: '/team', icon: UsersRound, label: 'Team' },
-      { to: '/integrations', icon: PlugZap, label: 'Integrations' },
-      { to: '/settings', icon: Settings, label: 'Settings' },
+      { to: '/team', icon: UsersRound, label: 'Team', page: false },
+      { to: '/integrations', icon: PlugZap, label: 'Integrations', page: false },
+      { to: '/settings', icon: Settings, label: 'Settings', page: false },
     ],
   },
 ];
@@ -74,7 +78,9 @@ export function AppShell() {
                     icon={item.icon}
                     label={item.label}
                     active={location.pathname === item.to}
-                    onClick={() => navigate(item.to)}
+                    disabled={!item.page}
+                    badge={item.page ? undefined : 'Soon'}
+                    onClick={item.page ? () => navigate(item.to) : undefined}
                     collapsed={collapsed}
                     nativeTooltip={!collapsed}
                   />
