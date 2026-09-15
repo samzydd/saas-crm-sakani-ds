@@ -6,7 +6,7 @@ import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
 import { randomGrowth } from '../lib/randomChartData';
-import { withFillPercent } from '../lib/withFillPercent';
+import { withFillPercent, withFillPercentByMax } from '../lib/withFillPercent';
 import styles from './Page.module.css';
 
 const INITIAL_GROWTH = [
@@ -33,11 +33,14 @@ const funnel = [
   { icon: CheckCircle2, label: 'Purchases', value: '12,100' },
 ];
 
+/** `max` is each metric's own scale top -- a 5-star rating, a 0-100 NPS,
+ * and two rates already out of 100 -- so the fill reads as how strong that
+ * metric is, not how big its raw digits happen to be next to the others. */
 const satisfaction = [
-  { label: 'Average rating', value: '4.8' },
-  { label: 'NPS score', value: '71' },
-  { label: 'Response rate', value: '18%' },
-  { label: 'Reviews', value: '14%' },
+  { label: 'Average rating', value: '4.8', max: 5 },
+  { label: 'NPS score', value: '71', max: 100 },
+  { label: 'Response rate', value: '18%', max: 100 },
+  { label: 'Reviews', value: '14%', max: 100 },
 ];
 
 const topCustomers = [
@@ -71,7 +74,7 @@ export function CustomersPage() {
     { key: 'customer', header: 'Customer' },
     { key: 'spend', header: 'Spend', align: 'right' },
     {
-      key: 'latestPurchase', header: 'Latest purchase', align: 'center',
+      key: 'latestPurchase', header: 'Latest purchase',
       render: (r) => <Badge variant="neutral" emphasis="subtle">{r.latestPurchase}</Badge>,
     },
     {
@@ -159,16 +162,16 @@ export function CustomersPage() {
 
         <Panel title="Customer Satisfaction" description="Customer feedback and loyalty metrics.">
           <div className={styles.metricPanel}>
-            {satisfaction.map((s) => (
-              <MetricRow key={s.label} label={s.label} value={s.value} />
+            {withFillPercentByMax(satisfaction).map((s) => (
+              <MetricRow key={s.label} label={s.label} value={s.value} fillPercent={s.fillPercent} />
             ))}
           </div>
         </Panel>
 
         <Panel title="Top Customers" description="Highest-value customers by total spend.">
           <div className={styles.metricPanel}>
-            {topCustomers.map((c) => (
-              <MetricRow key={c.label} label={c.label} value={c.value} valueMuted />
+            {withFillPercent(topCustomers).map((c) => (
+              <MetricRow key={c.label} label={c.label} value={c.value} fillPercent={c.fillPercent} valueMuted />
             ))}
           </div>
         </Panel>

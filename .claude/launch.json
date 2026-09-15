@@ -12,6 +12,17 @@
     {
       "name": "sakani-storybook",
       "url": "http://localhost:6006"
+    },
+    {
+      "name": "revive-ui-gallery",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": ".revive-ui-gallery",
+      "port": 5177
+    },
+    {
+      "name": "sakani-docs",
+      "url": "http://localhost:3210"
     }
   ]
 }
