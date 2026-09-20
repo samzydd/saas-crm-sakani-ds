@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 
 const STORAGE_KEY = 'theme';
 const MESSAGE_TYPE = 'sakani-crm:set-theme';
+/** Matches the `.theme-swap` kill-switch rule in vendor-sakani-tokens.css --
+ *  the same one ThemeToggle.tsx uses for a direct click. */
+const SUPPRESS_CLASS = 'theme-swap';
 
 /**
  * Lets a parent window (the docs site embedding this app in an <iframe>)
@@ -11,17 +14,35 @@ const MESSAGE_TYPE = 'sakani-crm:set-theme';
  * postMessage listener is the one channel two different origins actually
  * share.
  *
- * Applies theme exactly the way ThemeToggle does (toggle `.dark` on
- * <html>, persist to localStorage) so the two stay in sync regardless of
- * which one last changed it. Also announces readiness + current theme on
- * mount, so an embedding page can sync its own toggle's initial state
- * without guessing or racing the iframe's load event.
+ * Applies theme exactly the way ThemeToggle does: toggle `.dark` on <html>,
+ * persist to localStorage, AND wrap the class change in the same
+ * `.theme-swap` suppression window. That last part was missing here
+ * entirely until this fix -- this function has always been a separate,
+ * independent code path from ThemeToggle's own click handler (a real click
+ * and an incoming postMessage were never going through the same code), so
+ * fixing ThemeToggle's own desync left this one completely untouched. The
+ * embedding docs site drives the theme here exclusively via postMessage
+ * (see dashboard-showcase.tsx's "CRM demo 1" tab), so every theme flip this
+ * app receives from that embed went through this exact unfixed path --
+ * component hover/focus transitions firing at their own independent
+ * durations in response to a theme change, not a real interaction, the
+ * same class of bug already measured and fixed for a direct click.
  */
 export function useEmbeddedThemeControl() {
   useEffect(() => {
     const applyTheme = (theme: 'light' | 'dark') => {
-      document.documentElement.classList.toggle('dark', theme === 'dark');
+      const root = document.documentElement;
+      root.classList.add(SUPPRESS_CLASS);
+      void root.offsetHeight;
+
+      root.classList.toggle('dark', theme === 'dark');
       localStorage.setItem(STORAGE_KEY, theme);
+
+      const raf = requestAnimationFrame(() => root.classList.remove(SUPPRESS_CLASS));
+      setTimeout(() => {
+        cancelAnimationFrame(raf);
+        root.classList.remove(SUPPRESS_CLASS);
+      }, 100);
     };
 
     const onMessage = (event: MessageEvent) => {
