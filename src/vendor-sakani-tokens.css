@@ -300,30 +300,46 @@ html, body {
 
 /* There used to be a mass crossfade transition here -- background-color,
  * color, border-color and box-shadow on a bare `*, *::before, *::after`
- * selector, so that toggling .dark didn't leave some things fading while
- * everything else snapped instantly.
+ * selector, meant to keep toggling .dark from leaving some things fading
+ * while everything else snapped instantly. It solved that at the wrong
+ * layer: measured via document.getAnimations() right after a click on the
+ * live Dashboard, that one rule started 667 simultaneous per-element
+ * transitions from a single toggle -- color alone animating on 516 of the
+ * page's 578 DOM nodes at once. That many concurrent repaints competing for
+ * one main-thread frame budget produced a dropped-frame, blurred grey-wash
+ * flash on click. Removing it and trying the View Transitions API instead
+ * fixed that, but surfaced a smaller version of the exact same problem:
+ * individual components' own hover/focus transitions -- untouched by
+ * either of the above, since they're declared directly on the component --
+ * still fire when a color token changes value for theme reasons, each at
+ * whatever duration that component happens to use. Measured again: 30
+ * transitions, at two different durations (150ms and 220ms) running at
+ * once, so different elements were still finishing at genuinely different
+ * times.
  *
- * On a real dashboard that's a lot more expensive than it looks: measured
- * directly via document.getAnimations() right after a click on the live
- * Dashboard page, that one rule started 667 simultaneous per-element
- * transitions from a single toggle -- color alone was animating on 516 of
- * the page's 578 DOM nodes at once. That many concurrent repaints
- * competing for a single main-thread frame budget is exactly what produced
- * the dropped-frame, blurred grey-wash flash visible on click (see
- * ThemeToggle.tsx, which now drives the actual class flip).
+ * `.theme-swap` (see ThemeToggle.tsx, which adds and removes this class
+ * around the .dark flip) is the fix that actually holds: rather than trying
+ * to animate the swap uniformly, or predict which of dozens of components'
+ * independent transitions might fire, it suppresses every transition
+ * app-wide for the single frame the class change happens on. A component's
+ * own hover/focus transition is completely unaffected outside that window
+ * -- this doesn't remove or replace any of them, it just guarantees none of
+ * them are the ones responding to a theme change instead of a real
+ * interaction.
  *
- * ThemeToggle now reaches the same "uniform, not some things snapping"
- * goal through the View Transitions API instead: a single compositor
- * crossfade of the whole page, independent of how many DOM nodes exist.
- * Every element below therefore gets an instant, un-animated colour swap
- * by default -- that's intentional, not a regression; it's what makes the
- * view-transition crossfade the only thing moving, rather than racing
- * against hundreds of per-node transitions doing the same job worse.
- *
- * A component that wants its OWN transition (hover, focus, the Switch
- * thumb's slide) still declares one directly and is completely unaffected
- * either way -- that was already true of the old rule too, since it had
- * zero selector specificity. */
+ * `.theme-toggle-live` (the toggle's own root span) and everything inside
+ * it are excluded. `transition` is a single property, not a per-property
+ * merge -- a more specific/important rule setting it replaces the WHOLE
+ * value, it doesn't layer on top of what a component already declared. A
+ * blanket `.theme-swap *` with no exception would have overridden the
+ * Switch's own thumb-slide transition too, at exactly the moment its click
+ * is supposed to show it. The toggle control is the one thing in this
+ * system that SHOULD visibly react to its own click; every other reachable
+ * transition is the thing suppressing here that shouldn't fire on a theme
+ * change. */
+.theme-swap :not(.theme-toggle-live, .theme-toggle-live *) {
+  transition: none !important;
+}
 
 /* Respect the user's motion preference (WCAG 2.3.3). */
 @media (prefers-reduced-motion: reduce) {
