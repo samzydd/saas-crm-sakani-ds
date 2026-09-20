@@ -298,16 +298,32 @@ html, body {
     0 0 0 4px var(--color-border-focus);
 }
 
-/* Smooth color crossfade on theme change (the light/dark switch). Zero
- * specificity (a bare universal selector), so any component's own more
- * specific transition rule -- for hover, focus, etc. -- always wins outright
- * and is completely unaffected; this only fills in elements that don't
- * declare their own, so toggling .dark doesn't leave some things fading
- * while everything else snaps instantly. */
-*, *::before, *::after {
-  transition: background-color var(--transition-base), color var(--transition-base),
-    border-color var(--transition-base), box-shadow var(--transition-base);
-}
+/* There used to be a mass crossfade transition here -- background-color,
+ * color, border-color and box-shadow on a bare `*, *::before, *::after`
+ * selector, so that toggling .dark didn't leave some things fading while
+ * everything else snapped instantly.
+ *
+ * On a real dashboard that's a lot more expensive than it looks: measured
+ * directly via document.getAnimations() right after a click on the live
+ * Dashboard page, that one rule started 667 simultaneous per-element
+ * transitions from a single toggle -- color alone was animating on 516 of
+ * the page's 578 DOM nodes at once. That many concurrent repaints
+ * competing for a single main-thread frame budget is exactly what produced
+ * the dropped-frame, blurred grey-wash flash visible on click (see
+ * ThemeToggle.tsx, which now drives the actual class flip).
+ *
+ * ThemeToggle now reaches the same "uniform, not some things snapping"
+ * goal through the View Transitions API instead: a single compositor
+ * crossfade of the whole page, independent of how many DOM nodes exist.
+ * Every element below therefore gets an instant, un-animated colour swap
+ * by default -- that's intentional, not a regression; it's what makes the
+ * view-transition crossfade the only thing moving, rather than racing
+ * against hundreds of per-node transitions doing the same job worse.
+ *
+ * A component that wants its OWN transition (hover, focus, the Switch
+ * thumb's slide) still declares one directly and is completely unaffected
+ * either way -- that was already true of the old rule too, since it had
+ * zero selector specificity. */
 
 /* Respect the user's motion preference (WCAG 2.3.3). */
 @media (prefers-reduced-motion: reduce) {
