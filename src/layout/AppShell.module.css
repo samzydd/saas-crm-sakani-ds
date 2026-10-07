@@ -1,6 +1,7 @@
 .root {
   display: flex;
   height: 100vh;
+  height: 100dvh;
   background: var(--color-bg-canvas);
 }
 
@@ -126,4 +127,53 @@
   top: calc(100% + 8px);
   right: 0;
   z-index: 20;
+}
+
+/* ---- Responsive ---- */
+.sidebarWrap { display: flex; flex-shrink: 0; height: 100%; }
+.scrim { display: none; }
+
+@media (max-width: 760px) {
+  /* The sidebar leaves the layout and slides in over the page. */
+  .sidebarWrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: min(280px, 85vw);
+    background: var(--color-bg-surface);
+    box-shadow: var(--shadow-xl);
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+  }
+  .sidebarWrap > nav { width: 100%; box-sizing: border-box; }
+  .sidebarWrap[data-open='true'] { transform: translateX(0); }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--color-bg-inverse) 45%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+  .scrim[data-open='true'] { opacity: 1; pointer-events: auto; }
+
+  .main { height: 100dvh; }
+  .page {
+    padding: 12px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  /* The menu button already sits beside the title; the page icon is what
+     crowded it into the theme toggle. */
+  .topbarLeft > svg { display: none; }
+  .topbarTitle { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebarWrap, .scrim { transition: none; }
 }

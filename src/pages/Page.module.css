@@ -330,3 +330,30 @@
 }
 
 
+
+/* ---- Responsive ----
+   Tablet: three-up rows have ~220px per card, so they go single-column and the
+   KPI strip wraps to a 2x2. Phone: every grid is one column and the KPI strip
+   stacks. Panels in these rows had fixed heights sized for the wide layout; they
+   keep a sensible minimum height instead so charts don't collapse. */
+@media (max-width: 1000px) {
+  .kpiRow { flex-wrap: wrap; }
+  .kpiRow > * { flex: 1 1 calc(50% - 6px); }
+  .threeCol,
+  .threeCol--sales,
+  .threeCol--customers,
+  .ordersActivityRow { grid-template-columns: 1fr; height: auto; }
+  .threeCol > *,
+  .ordersActivityRow > * { min-height: 320px; }
+  .spanTwo { grid-column: auto; }
+}
+
+@media (max-width: 760px) {
+  .kpiRow { flex-direction: column; }
+  .kpiRow > * { flex: 0 0 auto; }
+  .chartsRow2,
+  .chartsRow2--customers { grid-template-columns: 1fr; }
+  .chartsRow2--fixed { height: auto; }
+  .chartsRow2 > * { min-height: 300px; }
+  .pageHeaderRow { flex-wrap: wrap; gap: 12px; }
+}
