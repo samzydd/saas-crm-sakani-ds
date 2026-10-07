@@ -14,3 +14,10 @@
   color: var(--color-fg-default);
   flex-shrink: 0;
 }
+
+/* On phones the sun/moon glyphs either side of the switch are what pushed the
+   top bar into the page title. The switch alone is enough there. */
+@media (max-width: 760px) {
+  .root { gap: 0; }
+  .icon, .icon--active { display: none; }
+}
