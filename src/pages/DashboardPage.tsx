@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Package, Warehouse, FileText, Megaphone, Building2, TrendingUp, ChevronRight } from 'lucide-react';
+import { IconPackage as Package, IconBuildingWarehouse as Warehouse, IconFileText as FileText, IconSpeakerphone as Megaphone, IconBuilding as Building2, IconTrendingUp as TrendingUp, IconChevronRight as ChevronRight } from '@sakaniui/react/icons';
 import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';

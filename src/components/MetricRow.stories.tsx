@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Eye } from 'lucide-react';
+import { IconEye as Eye } from '@sakaniui/react/icons';
 import { MetricRow } from './MetricRow';
 
 const meta = {

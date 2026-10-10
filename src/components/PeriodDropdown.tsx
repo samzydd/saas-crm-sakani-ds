@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { IconChevronDown as ChevronDown, IconChevronUp as ChevronUp } from '@sakaniui/react/icons';
 import { Button, Menu, MenuItem } from '@sakaniui/react';
 import styles from './PeriodDropdown.module.css';
 

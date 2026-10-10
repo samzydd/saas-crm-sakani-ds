@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Eye, ShoppingCart, CheckCircle2, TrendingUp, Upload } from 'lucide-react';
+import { IconSearch as Search, IconEye as Eye, IconShoppingCart as ShoppingCart, IconCircleCheck as CheckCircle2, IconTrendingUp as TrendingUp, IconUpload as Upload } from '@sakaniui/react/icons';
 import { StatCard, LineChart, DonutChart, Badge, Button, Table, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';

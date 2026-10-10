@@ -1,5 +1,5 @@
 import { useSyncExternalStore } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { IconMoon as Moon, IconSun as Sun } from '@sakaniui/react/icons';
 import { Switch } from '@sakaniui/react';
 import { getTheme, setTheme, subscribeTheme } from '../lib/theme';
 import styles from './ThemeToggle.module.css';

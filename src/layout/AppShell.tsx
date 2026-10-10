@@ -1,8 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import {
-  LayoutPanelTop, ChartColumnBig, CircleUser, Boxes, Megaphone, ChartPie, Settings2,
-  UsersRound, PlugZap, Settings, PanelRightClose, Menu as MenuIcon,
-} from 'lucide-react';
+import { IconLayoutNavbar as LayoutPanelTop, IconChartBar as ChartColumnBig, IconUserCircle as CircleUser, IconBoxMultiple as Boxes, IconSpeakerphone as Megaphone, IconChartPie as ChartPie, IconAdjustmentsHorizontal as Settings2, IconUsers as UsersRound, IconPlugConnected as PlugZap, IconSettings as Settings, IconLayoutSidebarRightCollapse as PanelRightClose, IconMenu as MenuIcon } from '@sakaniui/react/icons';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
   TopBar, Avatar, Menu, MenuItem, Tooltip,
