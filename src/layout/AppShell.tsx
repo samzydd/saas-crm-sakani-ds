@@ -105,6 +105,7 @@ export function AppShell() {
                     icon={item.icon}
                     label={item.label}
                     active={location.pathname === item.to}
+                    activeIndicator={false}
                     disabled={!item.page}
                     badge={item.page ? undefined : 'Soon'}
                     onClick={item.page ? () => { navigate(item.to); setNavOpen(false); } : undefined}

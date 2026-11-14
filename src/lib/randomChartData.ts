@@ -28,3 +28,17 @@ export function randomShares<T extends { label: string }>(data: T[]): (T & { val
     return { ...d, value };
   });
 }
+
+/** Net revenue by month, in $K, for the Sales page's period menu. */
+export function randomSales(): { label: string; value: number }[] {
+  return MONTHS.map((label, i) => ({ label, value: Math.round(820 + i * 80 + Math.random() * 140) }));
+}
+
+/** New and returning customers by month, for the Customers page's period menu. */
+export function randomCustomers(): { label: string; value: number; value2: number }[] {
+  return MONTHS.map((label, i) => ({
+    label,
+    value: Math.round(900 + i * 70 + Math.random() * 220),
+    value2: Math.round(2600 + i * 160 + Math.random() * 360),
+  }));
+}

@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { IconEye as Eye, IconPackage as Package, IconShoppingCart as ShoppingCart, IconCreditCard as CreditCard, IconCircleCheck as CheckCircle2, IconUpload as Upload, IconTrendingUp as TrendingUp } from '@sakaniui/react/icons';
-import { StatCard, LineChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from '@sakaniui/react';
+import { IconEye as Eye, IconPackage as Package, IconShoppingCart as ShoppingCart, IconCreditCard as CreditCard, IconCircleCheck as CheckCircle2, IconCash, IconWallet, IconReceiptRefund, IconShoppingCart, IconDiscount, IconUpload as Upload, IconTrendingUp as TrendingUp } from '@sakaniui/react/icons';
+import { StatCard, AreaChart, DonutChart, Badge, Button, Table, Avatar, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
 import { MetricRow } from '../components/MetricRow';
 import { PeriodDropdown } from '../components/PeriodDropdown';
-import { randomGrowth } from '../lib/randomChartData';
+import { randomSales } from '../lib/randomChartData';
 import { withFillPercent } from '../lib/withFillPercent';
 import styles from './Page.module.css';
 
-const INITIAL_GROWTH = [
-  { label: 'Jan', Acquisition: 3800, Retention: 3200 },
-  { label: 'Feb', Acquisition: 4100, Retention: 3400 },
-  { label: 'Mar', Acquisition: 3950, Retention: 3550 },
-  { label: 'Apr', Acquisition: 4400, Retention: 3700 },
-  { label: 'May', Acquisition: 4700, Retention: 3900 },
-  { label: 'Jun', Acquisition: 5100, Retention: 4150 },
+/* Net revenue by month, in $K. June is the figure in the KPI row. */
+const INITIAL_SALES = [
+  { label: 'Jan', value: 868 },
+  { label: 'Feb', value: 944 },
+  { label: 'Mar', value: 1007 },
+  { label: 'Apr', value: 1080 },
+  { label: 'May', value: 1173 },
+  { label: 'Jun', value: 1249 },
 ];
 
 const channels = [
@@ -23,19 +24,6 @@ const channels = [
   { label: 'Mobile app', value: 27 },
   { label: 'Marketplace', value: 18 },
   { label: 'Retail', value: 7 },
-];
-
-const devices = [
-  { label: 'Desktop', value: 54 },
-  { label: 'Mobile', value: 39 },
-  { label: 'Tablet', value: 7 },
-];
-
-const payments = [
-  { label: 'Credit card', value: 52 },
-  { label: 'Paypal', value: 24 },
-  { label: 'Apple pay', value: 16 },
-  { label: 'Bank transfer', value: 8 },
 ];
 
 const funnel = [
@@ -55,6 +43,13 @@ const countries = [
   { label: 'Nigeria', value: '$23,040', flag: '/flags/ng.png' },
 ];
 
+const payments = [
+  { label: 'Credit card', value: '52%' },
+  { label: 'PayPal', value: '24%' },
+  { label: 'Apple Pay', value: '16%' },
+  { label: 'Bank transfer', value: '8%' },
+];
+
 const refundReasons = [
   { label: 'Wrong size', value: '32%' },
   { label: 'Changed mind', value: '24%' },
@@ -64,33 +59,44 @@ const refundReasons = [
 ];
 
 interface ProductRow {
-  order: string;
+  product: string;
+  category: string;
   image: string;
+  units: string;
   revenue: string;
-  unitsSold: string;
+  change: number;
 }
 
 const products: ProductRow[] = [
-  { order: 'Wireless Headphones Pro', image: '/products/headphones.png', revenue: '$248,700', unitsSold: '3122' },
-  { order: 'Smart Fitness Watch', image: '/products/fitness-watch.png', revenue: '$184,299', unitsSold: '2061' },
-  { order: 'Mechanical Keyboard', image: '/products/keyboard.jpg', revenue: '$139,459', unitsSold: '2745' },
-  { order: 'Premium Backpack', image: '/products/backpack.jpg', revenue: '$124,800', unitsSold: '1895' },
+  { product: 'Wireless Headphones Pro', category: 'Audio', image: '/products/headphones.png', units: '3,122', revenue: '$248,700', change: 12 },
+  { product: 'Smart Fitness Watch', category: 'Wearables', image: '/products/fitness-watch.png', units: '2,061', revenue: '$184,299', change: 8 },
+  { product: 'Mechanical Keyboard', category: 'Accessories', image: '/products/keyboard.jpg', units: '2,745', revenue: '$139,459', change: 5 },
+  { product: 'Premium Backpack', category: 'Lifestyle', image: '/products/backpack.jpg', units: '1,895', revenue: '$124,800', change: -3 },
 ];
 
+
 export function SalesPage() {
-  const [growth, setGrowth] = useState(INITIAL_GROWTH);
+  const [sales, setSales] = useState(INITIAL_SALES);
+
   const columns: TableColumn<ProductRow>[] = [
     {
-      key: 'order', header: 'Order',
+      key: 'product', header: 'Product',
       render: (r) => (
-        <span className={styles.productCell}>
-          <Avatar size="sm" src={r.image} alt="" />
-          <span className={styles.productName}>{r.order}</span>
+        <span className={styles.identity}>
+          <Avatar size="md" src={r.image} alt="" />
+          <span className={styles.identityText}>
+            <span className={styles.identityName}>{r.product}</span>
+            <span className={styles.identitySub}>{r.category}</span>
+          </span>
         </span>
       ),
     },
-    { key: 'revenue', header: 'Revenue', align: 'right' },
-    { key: 'unitsSold', header: 'Unit sold', align: 'right' },
+    { key: 'units', header: 'Units', width: '84px', align: 'right', render: (r) => <span className={styles.num}>{r.units}</span> },
+    { key: 'revenue', header: 'Revenue', width: '104px', align: 'right', render: (r) => <span className={styles.num}>{r.revenue}</span> },
+    {
+      key: 'change', header: 'Change', width: '84px', align: 'right',
+      render: (r) => <Badge variant={r.change < 0 ? 'warning' : 'success'} emphasis="subtle">{r.change > 0 ? '+' : '-'}{Math.abs(r.change)}%</Badge>,
+    },
   ];
 
   return (
@@ -108,121 +114,86 @@ export function SalesPage() {
         </div>
       </div>
 
+      {/* A rise in refunds or discounts is not good news, so those two deltas are amber, not green. */}
       <div className={styles.kpiRow}>
-        <StatCard title="Gross Sales" value="$1,472,310" delta="10.2%" trend="up" description="vs last month" />
-        <StatCard title="Net Revenue" value="$1,248,950" delta="14.8%" trend="up" description="vs last month" />
-        <StatCard title="Refunds" value="$42,380" delta="9.8%" trend="up" description="vs last month" />
-        <StatCard title="Avg Order" value="$82.34" delta="1.5%" trend="up" description="vs last month" />
-        <StatCard title="Discounts" value="$68,950" delta="4.1%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconCash} title="Gross sales" value="$1,472,310" delta="10.2%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconWallet} title="Net revenue" value="$1,248,950" delta="14.8%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconReceiptRefund} title="Refunds" value="$42,380" delta="9.8%" trend="up" badgeVariant="warning" description="vs last month" />
+        <StatCard variant="icon" icon={IconShoppingCart} title="Avg order" value="$82.34" delta="1.5%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconDiscount} title="Discounts" value="$68,950" delta="4.1%" trend="up" badgeVariant="warning" description="vs last month" />
       </div>
 
-      <div className={`${styles.chartsRow2} ${styles['chartsRow2--fixed']}`}>
+      <div className={styles.row2to1}>
         <Panel
-          title="Acquisition vs retention"
-          description="Track visitor acquisition and retention trends over time."
-          className={styles.panelCanvas}
+          title="Revenue overview"
+          description="Net revenue by month, in $K."
           actions={<>
             <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>6.4% up this month</Badge>
-            <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
+            <PeriodDropdown onChange={() => setSales(randomSales())} />
           </>}
         >
-          <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" height={174} />
-          <div className={styles.legendRowInline}>
-            <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
-            <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
-          </div>
+          <AreaChart data={sales} seriesLabels={['Net revenue']} size="lg" height={320} appearance="rich" />
         </Panel>
 
         <Panel
-          title="Channel breakdown"
+          title="Sales by channel"
           description="Where this month's revenue is coming from."
-          className={styles.panelCanvas}
-          actions={<>
-            <Badge variant="success" emphasis="subtle" rightIcon={<TrendingUp size={12} strokeWidth={2} />}>1.4% this month</Badge>
-            <Button variant="outline" size="sm">View report</Button>
-          </>}
+          actions={<Button variant="outline" size="sm">View report</Button>}
         >
-          <div className={styles.chartLegendRow}>
-            <div className={styles.chartFixed} style={{ width: 200 }}>
-              <DonutChart data={channels} size="md" height={205} centerValue="$2.44M" centerCaption="of revenue" />
-            </div>
+          <div className={styles.donutBlock}>
+            <DonutChart data={channels} size="md" centerValue="$1.47M" centerCaption="gross sales" appearance="rich" />
             <div className={styles.legendList}>
-              {channels.map((c, i) => (
-                <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
-              ))}
+              {channels.map((c, i) => <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />)}
             </div>
           </div>
         </Panel>
       </div>
 
-      <div className={`${styles.threeCol} ${styles['threeCol--sales']}`}>
+      <div className={styles.row3}>
         <Panel title="Conversion funnel" description="From first visit to completed purchase.">
-          <div className={styles.metricPanel}>
+          <div className={styles.list}>
             {withFillPercent(funnel).map((f) => (
               <MetricRow key={f.label} icon={<f.icon size={16} strokeWidth={1.5} />} label={f.label} value={f.value} fillPercent={f.fillPercent} />
             ))}
           </div>
-          <Badge variant="info" emphasis="subtle" className={`${styles.hugContent} ${styles.conversionBadge}`}>4.9% overall conversion</Badge>
-        </Panel>
-
-        <Panel title="Device breakdown" description="Sessions split across device types.">
-          <div className={styles.chartColumnCentered}>
-            <div className={styles.chartFixed} style={{ width: 140 }}>
-              <DonutChart data={devices} size="sm" height={140} centerValue="100%" centerCaption="total" />
-            </div>
-            <div className={styles.legendWrapRow}>
-              {devices.map((d, i) => (
-                <LegendRow key={d.label} colorIndex={i + 1} label={d.label} value={`${d.value}%`} />
-              ))}
-            </div>
-          </div>
+          <Badge variant="info" emphasis="subtle" className={styles.footBadge}>4.9% overall conversion</Badge>
         </Panel>
 
         <Panel title="Top countries" description="Revenue by customer location.">
-          <div className={styles.metricPanel}>
+          <div className={styles.list}>
             {withFillPercent(countries).map((c) => (
-              <MetricRow key={c.label} icon={<img src={c.flag} alt="" width={14} height={14} />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
+              <MetricRow key={c.label} icon={<img className={styles.flag} src={c.flag} alt="" />} label={c.label} value={c.value} fillPercent={c.fillPercent} />
+            ))}
+          </div>
+        </Panel>
+
+        <Panel title="Payment methods" description="How customers are paying.">
+          <div className={styles.list}>
+            {payments.map((p, i) => (
+              <MetricRow key={p.label} label={p.label} value={p.value} fillPercent={parseFloat(p.value)} color={`var(--color-chart-${i + 1})`} />
             ))}
           </div>
         </Panel>
       </div>
 
-      <div className={`${styles.threeCol} ${styles['threeCol--sales']}`}>
-        <Panel title="Payment methods" description="How customers are paying.">
-          <div className={styles.chartLegendRow}>
-            <div className={styles.chartFixed} style={{ width: 160 }}>
-              <DonutChart data={payments} size="sm" centerValue="100%" centerCaption="method" />
-            </div>
-            <div className={styles.legendList}>
-              {payments.map((p, i) => (
-                <LegendRow key={p.label} colorIndex={i + 1} label={p.label} value={`${p.value}%`} />
-              ))}
-            </div>
-          </div>
+      <div className={styles.row2to1}>
+        <Panel
+          title="Top performing products"
+          description="Products generating the highest revenue."
+          actions={<Button variant="outline" size="sm">View all</Button>}
+        >
+          <Table<ProductRow> columns={columns} rows={products} rowKey={(r) => r.product} bordered={false} />
         </Panel>
 
-        <Panel title="Top performing products" description="Products generating the highest revenue.">
-          <Table<ProductRow> columns={columns} rows={products} rowKey={(r) => r.order} bordered={false} />
-        </Panel>
-
-        <Panel title="Refund reasons" description="Why customers are requesting refunds.">
+        <Panel title="Refunds" description="Why customers are sending products back.">
           <div className={styles.miniStatsRow}>
-            <div className={styles.miniStat}>
-              <span className={styles.miniStatLabel}>Refund rate</span>
-              <span className={styles.miniStatValue}>3.2%</span>
-            </div>
-            <div className={styles.miniStat}>
-              <span className={styles.miniStatLabel}>Refund orders</span>
-              <span className={styles.miniStatValue}>186</span>
-            </div>
-            <div className={styles.miniStat}>
-              <span className={styles.miniStatLabel}>Avg refund amt</span>
-              <span className={styles.miniStatValue}>$54</span>
-            </div>
+            <div className={styles.miniStat}><span className={styles.miniStatLabel}>Refund rate</span><span className={styles.miniStatValue}>3.2%</span></div>
+            <div className={styles.miniStat}><span className={styles.miniStatLabel}>Orders</span><span className={styles.miniStatValue}>186</span></div>
+            <div className={styles.miniStat}><span className={styles.miniStatLabel}>Avg amount</span><span className={styles.miniStatValue}>$54</span></div>
           </div>
-          <div className={styles.metricPanel}>
-            {withFillPercent(refundReasons).map((r) => (
-              <MetricRow key={r.label} label={r.label} value={r.value} fillPercent={r.fillPercent} />
+          <div className={styles.list}>
+            {refundReasons.map((r) => (
+              <MetricRow key={r.label} label={r.label} value={r.value} fillPercent={(parseFloat(r.value) / 32) * 100} color="var(--color-warning-solid)" />
             ))}
           </div>
         </Panel>

@@ -37,7 +37,6 @@ export const WithActions: Story = {
  * full-width line below — used by list/table panels. */
 export const ActionsInline: Story = {
   args: {
-    actionsInline: true,
     actions: <Button variant="outline" size="sm">View all</Button>,
     children: <p style={{ margin: 0, color: 'var(--color-fg-muted)' }}>Panel content goes here.</p>,
   },

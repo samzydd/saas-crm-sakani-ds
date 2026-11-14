@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconPackage as Package, IconBuildingWarehouse as Warehouse, IconFileText as FileText, IconSpeakerphone as Megaphone, IconBuilding as Building2, IconTrendingUp as TrendingUp, IconChevronRight as ChevronRight } from '@sakaniui/react/icons';
+import { IconCurrencyDollar, IconWallet, IconShoppingCart, IconUsers, IconPackage as Package, IconBuildingWarehouse as Warehouse, IconFileText as FileText, IconSpeakerphone as Megaphone, IconBuilding as Building2, IconChevronRight as ChevronRight } from '@sakaniui/react/icons';
 import { StatCard, BarChart, LineChart, DonutChart, Badge, Button, Table, Avatar, AvatarGroup, type TableColumn } from '@sakaniui/react';
 import { Panel } from '../components/Panel';
 import { LegendRow } from '../components/LegendRow';
@@ -117,70 +117,43 @@ export function DashboardPage() {
   return (
     <>
       <div className={styles.kpiRow}>
-        <StatCard title="Total revenue" value="$2,483,920" delta="18.2%" trend="up" description="vs last month" />
-        <StatCard title="Net profit" value="$712,480" delta="12.2%" trend="up" description="vs last month" />
-        <StatCard title="Orders today" value="18,432" delta="9.8%" trend="up" description="vs last month" />
-        <StatCard title="Active customers" value="24,981" delta="1.5%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconCurrencyDollar} title="Total revenue" value="$2,483,920" delta="18.2%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconWallet} title="Net profit" value="$712,480" delta="12.2%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconShoppingCart} title="Orders today" value="18,432" delta="9.8%" trend="up" description="vs last month" />
+        <StatCard variant="icon" icon={IconUsers} title="Active customers" value="24,981" delta="1.5%" trend="up" description="vs last month" />
       </div>
 
-      <div className={styles.threeCol}>
+      <div className={styles.row3}>
         <Panel
           title="Revenue trend"
-          description={'Track monthly revenue growth and identify\nsales trends.'}
-          className={styles.panelCanvas}
-          actions={<>
-            <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
-              6.4% up this month
-            </Badge>
-            <PeriodDropdown onChange={() => setRevenue(randomRevenue())} />
-          </>}
+          description="Monthly revenue and where it is heading."
+          actions={<PeriodDropdown onChange={() => setRevenue(randomRevenue())} />}
         >
-          <div className={styles.chartH176}>
-            <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="sm" />
-          </div>
+          <BarChart data={revenue.map((r) => ({ label: r.label, value: r.revenue }))} size="md" appearance="rich" />
         </Panel>
 
         <Panel
           title="Customer growth"
-          description="Measures customer acquisition, retention, and overall audience growth over time."
-          className={styles.panelCanvas}
-          actions={<>
-            <div className={styles.legendRowLeft}>
-              <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-1)' }} />Acquisition</span>
-              <span className={styles.legendItem}><span className={styles.dot} style={{ background: 'var(--color-chart-2)' }} />Retention</span>
-            </div>
-            <PeriodDropdown onChange={() => setGrowth(randomGrowth())} />
-          </>}
+          description="New customers won against customers kept."
+          actions={<PeriodDropdown onChange={() => setGrowth(randomGrowth())} />}
         >
-          <div className={styles.chartH176}>
-            <LineChart data={growth} series={['Acquisition', 'Retention']} size="sm" />
-          </div>
+          <LineChart data={growth} series={['Acquisition', 'Retention']} size="md" showLegend appearance="rich" />
         </Panel>
 
         <Panel
           title="Sales channel"
-          description="Compare revenue contribution across your primary sales channels."
-          className={styles.panelCanvas}
-          actions={<>
-            <Badge variant="success" emphasis="subtle" leftIcon={<TrendingUp size={14} strokeWidth={2} />}>
-              1.4% this month
-            </Badge>
-            <PeriodDropdown
+          description="Where revenue is coming from."
+          actions={<PeriodDropdown
               defaultValue="This month"
               options={['This month', 'Last month', 'This quarter', 'This year']}
               formatLabel={(v) => v}
               onChange={() => setChannels(randomShares(INITIAL_CHANNELS))}
-            />
-          </>}
+            />}
         >
-          <div className={styles.chartLegendRow}>
-            <div className={styles.chartFixed} style={{ width: 160 }}>
-              <DonutChart data={channels} size="sm" centerValue="$2.44M" centerCaption="of revenue" />
-            </div>
+          <div className={styles.donutBlock}>
+            <DonutChart data={channels} size="md" centerValue="$2.44M" centerCaption="of revenue" appearance="rich" />
             <div className={styles.legendList}>
-              {channels.map((c, i) => (
-                <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />
-              ))}
+              {channels.map((c, i) => <LegendRow key={c.label} colorIndex={i + 1} label={c.label} value={`${c.value}%`} />)}
             </div>
           </div>
         </Panel>
@@ -191,16 +164,12 @@ export function DashboardPage() {
         title="Recent orders"
         description="Track recent customer purchases and order progress."
         actions={<Button variant="outline" size="sm">View all</Button>}
-        actionsInline
-        className={styles.spanTwo}
       >
-        <div className={styles.panelScroll}>
-          <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} />
-        </div>
+        <Table<Order> columns={columns} rows={orders} rowKey={(r) => r.order} bordered={false} />
       </Panel>
 
-      <Panel title="Recent activity" description="Latest system and team activity." actionsInline>
-        <div className={`${styles.activityList} ${styles.panelScroll}`}>
+      <Panel title="Recent activity" description="Latest system and team activity.">
+        <div className={styles.activityList}>
           {activity.map((a, i) => {
             const Icon = a.icon;
             return (
