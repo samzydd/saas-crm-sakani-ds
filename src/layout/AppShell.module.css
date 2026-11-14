@@ -74,8 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  /* the cards (bg/surface) sit on the canvas colour, so they lift off the page in light and dark */
-  background: var(--color-bg-canvas);
+  background: var(--color-bg-surface);
   border-top-left-radius: 28px;
   border-top-right-radius: 28px;
   box-shadow: inset 0 0 0 1px var(--color-border-subtle);
