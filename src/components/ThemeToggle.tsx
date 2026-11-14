@@ -32,7 +32,7 @@ export function ThemeToggle() {
 
   return (
     // theme-toggle-live is a plain, un-hashed global class (unlike
-    // styles.root, which CSS Modules hashes) -- vendor-sakani-tokens.css needs
+    // styles.root, which CSS Modules hashes) -- @sakaniui/react's tokens.css needs
     // a stable name to carve this subtree out of the suppression rule, so the
     // switch's own thumb-slide still animates on the click that caused it.
     <span className={`${styles.root} theme-toggle-live`}>

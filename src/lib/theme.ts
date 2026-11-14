@@ -25,7 +25,7 @@
 export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
-/** Matches the `.theme-swap` kill-switch rule in vendor-sakani-tokens.css. */
+/** Matches the `.theme-swap` kill-switch rule in @sakaniui/react's tokens.css. */
 const SUPPRESS_CLASS = 'theme-swap';
 
 /**
