@@ -15,3 +15,21 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/* ---- Switching theme ------------------------------------------------------------------------------------------ *
+ * lib/theme.ts puts `.theme-swap` on <html> while the theme changes and takes a View Transition (a cross-fade of the
+ * whole page). Without this rule every component's own colour transition fires at once, at its own duration, which
+ * reads as the dashboard twitching in pieces (measured on the live demo: 600+ elements, two durations).
+ *
+ * `transition` is one property, not a per-property merge, so a blanket rule would also replace the Switch's thumb
+ * slide: the toggle (`.theme-toggle-live`, see ThemeToggle.tsx) is the one thing carved out. */
+.theme-swap :not(.theme-toggle-live, .theme-toggle-live *) {
+  transition: none !important;
+}
+
+/* The cross-fade itself. Keep the duration in step with FADE_MS in lib/theme.ts. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -25,7 +25,7 @@
 export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
-/** Matches the `.theme-swap` kill-switch rule in @sakaniui/react's tokens.css. */
+/** Matches the `.theme-swap` kill-switch rule in index.css (the package's tokens.css does not ship one). */
 const SUPPRESS_CLASS = 'theme-swap';
 
 /**
@@ -51,31 +51,56 @@ export function subscribeTheme(onChange: () => void): () => void {
   };
 }
 
+/** How long the cross-fade lasts. The same number is in index.css (`::view-transition-*`). */
+const FADE_MS = 320;
+
+type ViewTransitionDocument = Document & { startViewTransition?: (update: () => void) => { finished: Promise<unknown> } };
+
 export function setTheme(next: Theme): void {
   if (next === current) return;
   current = next;
 
   const root = document.documentElement;
+
+  /** The change itself: the class, the saved choice, and everything that displays the theme. */
+  const apply = () => {
+    root.classList.toggle('dark', next === 'dark');
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // Embedded cross-origin, storage may be partitioned off. Persistence is
+      // the only thing lost; the theme itself still applies.
+    }
+    listeners.forEach((notify) => notify());
+  };
+  const release = () => root.classList.remove(SUPPRESS_CLASS);
+
+  // Every component's own colour transition (about 600 elements here, at two different durations) would otherwise
+  // start the moment the tokens change and finish at different times: that is the "twitching". They are switched
+  // off for the change; the cross-fade below is the only thing that moves.
   root.classList.add(SUPPRESS_CLASS);
-  // Forces the "all transitions off" state to be applied before the line
-  // below, rather than being batched into one style recalculation with it --
-  // without this read the suppression would never actually take effect first.
+  // Forces the "all transitions off" state to be applied before the change, rather than being batched into one
+  // style recalculation with it -- without this read the suppression would never actually take effect first.
   void root.offsetHeight;
 
-  root.classList.toggle('dark', next === 'dark');
-  try {
-    localStorage.setItem(STORAGE_KEY, next);
-  } catch {
-    // Embedded cross-origin, storage may be partitioned off. Persistence is
-    // the only thing lost; the theme itself still applies.
+  const doc = document as ViewTransitionDocument;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (doc.startViewTransition && !reduced) {
+    // The browser photographs the page, the theme changes underneath, and it blends the old picture into the new
+    // one in one smooth fade, on the compositor, instead of hundreds of separate repaints. The "new" side of that
+    // is the live page, so the suppression has to last until the fade is over, not just for one frame.
+    const transition = doc.startViewTransition(apply);
+    transition.finished.then(release, release);
+    // Backs up `finished` (it can be skipped, or deferred in a backgrounded tab) so the suppression can never stick
+    // and silently kill every later hover transition.
+    setTimeout(release, FADE_MS + 500);
+    return;
   }
 
-  // Transitions only need to be off WHILE the new colors land, not after.
-  // The timeout backs up rAF in a backgrounded tab (deferred there), so
-  // suppression can't stick and silently kill every later hover transition.
-  const release = () => root.classList.remove(SUPPRESS_CLASS);
+  // No View Transitions (or reduced motion): a clean instant switch. Transitions only need to be off WHILE the new
+  // colors land, and the timeout backs up rAF, which is deferred in a backgrounded tab.
+  apply();
   requestAnimationFrame(release);
   setTimeout(release, 100);
-
-  listeners.forEach((notify) => notify());
 }
