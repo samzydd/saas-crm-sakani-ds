@@ -52,7 +52,7 @@ export function subscribeTheme(onChange: () => void): () => void {
 }
 
 /** How long the cross-fade lasts. The same number is in index.css (`::view-transition-*`). */
-const FADE_MS = 320;
+const FADE_MS = 380;
 
 type ViewTransitionDocument = Document & { startViewTransition?: (update: () => void) => { finished: Promise<unknown> } };
 

@@ -30,6 +30,6 @@ body {
 /* The cross-fade itself. Keep the duration in step with FADE_MS in lib/theme.ts. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.32s;
+  animation-duration: 0.38s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
