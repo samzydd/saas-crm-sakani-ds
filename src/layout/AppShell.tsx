@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { IconLayoutNavbar as LayoutPanelTop, IconChartBar as ChartColumnBig, IconUserCircle as CircleUser, IconBoxMultiple as Boxes, IconSpeakerphone as Megaphone, IconChartPie as ChartPie, IconAdjustmentsHorizontal as Settings2, IconUsers as UsersRound, IconPlugConnected as PlugZap, IconSettings as Settings, IconLayoutSidebarRightCollapse as PanelRightClose, IconMenu as MenuIcon } from '@sakaniui/react/icons';
+import { IconLayoutNavbar as LayoutPanelTop, IconChartBar as ChartColumnBig, IconUserCircle as CircleUser, IconBoxMultiple as Boxes, IconSpeakerphone as Megaphone, IconChartPie as ChartPie, IconAdjustmentsHorizontal as Settings2, IconUsers as UsersRound, IconPlugConnected as PlugZap, IconSettings as Settings, IconLayoutSidebarRightCollapse as PanelRightClose, IconMenu as MenuIcon, IconCalendar } from '@sakaniui/react/icons';
 import {
   Sidebar, SidebarHeader, SidebarGroupLabel, SidebarItem, SidebarPromo,
   TopBar, Avatar, Menu, MenuItem, Tooltip,
@@ -9,7 +9,7 @@ import { SearchExpand } from '../components/SearchExpand';
 import { ThemeToggle } from '../components/ThemeToggle';
 import styles from './AppShell.module.css';
 
-// Only Dashboard/Sales/Customers have a real <Route> in App.tsx -- the
+// Only Dashboard/Sales/Customers/Calendar have a real <Route> in App.tsx -- the
 // rest are shown (real sidebar groups read better with a full list) but
 // disabled, rather than navigating to a path with no matching route and
 // silently rendering a blank <Outlet />.
@@ -20,6 +20,7 @@ const NAV = [
       { to: '/', icon: LayoutPanelTop, label: 'Dashboard', page: true },
       { to: '/sales', icon: ChartColumnBig, label: 'Sales', page: true },
       { to: '/customers', icon: CircleUser, label: 'Customers', page: true },
+      { to: '/calendar', icon: IconCalendar, label: 'Calendar', page: true },
       { to: '/products', icon: Boxes, label: 'Products', page: false },
     ],
   },

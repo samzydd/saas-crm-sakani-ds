@@ -3,6 +3,7 @@ import { AppShell } from './layout/AppShell';
 import { DashboardPage } from './pages/DashboardPage';
 import { SalesPage } from './pages/SalesPage';
 import { CustomersPage } from './pages/CustomersPage';
+import { CalendarPage } from './pages/CalendarPage';
 import { useEmbeddedThemeControl } from './hooks/useEmbeddedThemeControl';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/sales" element={<SalesPage />} />
           <Route path="/customers" element={<CustomersPage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
